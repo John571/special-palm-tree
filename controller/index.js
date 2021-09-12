@@ -2,7 +2,6 @@ import dotenv from "dotenv";
 import amqp from "amqplib";
 import express from "express";
 import crypto from "crypto";
-// crypto.randomBytes(4).toString('hex')
 
 dotenv.config();
 let channel = null;
@@ -28,15 +27,15 @@ app.use(express.json());
 
 app.get("/", (req, res) => res.send("Hello from shopingApp Controller"));
 
-app.post("/msg", async (req, res) => {
+app.get("/lists", async (req, res) => {
   q = await channel.assertQueue("", { exclusive: true });
   let msg = {
     content: req.body.msg,
-    type: "job_request",
+    type: "lists_request",
   };
   let id = crypto.randomBytes(4).toString("hex");
   console.log(
-    `controller - sending msg ${msg.content} of type ${msg.type} with id ${id}, waiting for processing...`
+    `controller - sending msg ${msg} of type ${msg.type} with id ${id}, waiting for processing...`
   );
 
   channel.sendToQueue(QUEUE, Buffer.from(JSON.stringify(msg)), {
@@ -49,13 +48,13 @@ app.post("/msg", async (req, res) => {
       let ms = JSON.parse(data.content);
       let idd = data.properties.correlationId;
       console.log(
-        `controller received answer ${ms.content} of type ${ms.type} with id ${idd}`
+        `controller received answer ${ms} of type ${ms.type} with id ${idd}`
       );
       channel.ack(data);
       channel.deleteQueue(q.queue);
+      res.json(ms);
     }
   });
-  res.send("Ok!");
 });
 
 app.listen(4000, () =>
