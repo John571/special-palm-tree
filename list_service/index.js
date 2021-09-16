@@ -15,7 +15,7 @@ mongoose
   .catch((err) => console.log(err));
 
 import List from "./db_schemas/List.js";
-
+import User from "./db_schemas/User.js";
 let channel = null;
 let connection = null;
 let q = null;
@@ -41,19 +41,19 @@ connect().then(async () =>
     console.log(`received message ${msg.content} with id ${id}`);
     switch (msg.type) {
       case "lists_request":
-        answer = await List.find({
-          owner_id: msg.usr_id,
-        });
+        answer = await User.find(
+          mongoose.Types.ObjectId(msg.content.usr_id)
+        ).populate({ path: "user_lists._id" });
+        msg.type = "lists_request_done";
+        msg.content = answer[0].user_lists;
         break;
     }
-    msg.type = "lists_request_done";
-    msg.content = answer;
     console.log(
       `Processed message ${msg.content} with id ${id}, the answer is ${answer}`
     );
     channel.sendToQueue(
       data.properties.replyTo,
-      Buffer.from(JSON.stringify(answer)),
+      Buffer.from(JSON.stringify(msg)),
       { correlationId: id }
     );
     channel.ack(data);

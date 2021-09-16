@@ -30,12 +30,12 @@ app.get("/", (req, res) => res.send("Hello from shopingApp Controller"));
 app.get("/lists", async (req, res) => {
   q = await channel.assertQueue("", { exclusive: true });
   let msg = {
-    content: req.body.msg,
+    content: req.body.usr_id,
     type: "lists_request",
   };
   let id = crypto.randomBytes(4).toString("hex");
   console.log(
-    `controller - sending msg ${msg} of type ${msg.type} with id ${id}, waiting for processing...`
+    `controller - sending msg ${msg.content} of type ${msg.type} with id ${id}, waiting for processing...`
   );
 
   channel.sendToQueue(QUEUE, Buffer.from(JSON.stringify(msg)), {
@@ -48,7 +48,9 @@ app.get("/lists", async (req, res) => {
       let ms = JSON.parse(data.content);
       let idd = data.properties.correlationId;
       console.log(
-        `controller received answer ${ms} of type ${ms.type} with id ${idd}`
+        `controller received answer ${JSON.stringify(ms.content)} of type ${
+          ms.type
+        } with id ${idd}`
       );
       channel.ack(data);
       channel.deleteQueue(q.queue);
