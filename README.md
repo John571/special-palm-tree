@@ -1,2 +1,2 @@
 # special-palm-tree
-Social Shopping List Project
+Social Shopping List
