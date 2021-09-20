@@ -40,16 +40,38 @@ connect().then(async () =>
     let answer = null;
     console.log(`received message ${msg.content} with id ${id}`);
     switch (msg.type) {
-      case "lists_request":
+      case "lists_get":
         answer = await User.find(
           mongoose.Types.ObjectId(msg.content.usr_id)
         ).populate({ path: "user_lists._id" });
-        msg.type = "lists_request_done";
+        msg.type = "lists_get_done";
         msg.content = answer[0].user_lists;
+        break;
+
+      case "lists_post":
+        let new_list = new List({
+          list_name: msg.content.list_name,
+          list_description: msg.content.list_description,
+          list_participants: [
+            {
+              _id: mongoose.Types.ObjectId(msg.content.usr_id),
+              owner: true,
+            },
+          ],
+        });
+        new_list;
+        await new_list.save();
+        let id = new_list._id;
+        await User.updateOne(
+          { _id: msg.content.usr_id },
+          { $push: { user_lists: { _id: id, owner: true } } }
+        );
+        msg.type = "lists_posts_done";
+        msg.content = new_list;
         break;
     }
     console.log(
-      `Processed message ${msg.content} with id ${id}, the answer is ${answer}`
+      `Processed message ${msg.content} with id ${id}, the answer is ${msg}`
     );
     channel.sendToQueue(
       data.properties.replyTo,
