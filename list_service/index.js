@@ -71,21 +71,36 @@ connect().then(async () =>
         break;
 
       case "lists_invite":
-        // TODO: Check if already participant
         let usr_id = msg.content.usr_id;
         let list_id = msg.content.list_id;
-        await User.updateOne(
-          { _id: usr_id },
-          { $push: { user_lists: { _id: list_id, owner: false } } }
-        );
+        let check = await User.findOne({
+          _id: mongoose.Types.ObjectId(usr_id),
+          "user_lists._id": mongoose.Types.ObjectId(list_id),
+        });
+        if (check == null) {
+          await User.updateOne(
+            { _id: mongoose.Types.ObjectId(usr_id) },
+            { $push: { user_lists: { _id: list_id, owner: false } } }
+          );
+          await List.updateOne(
+            { _id: list_id },
+            { $push: { list_participants: { _id: usr_id, owner: false } } }
+          );
+          msg.content = {
+            status: "ok",
+          };
+        } else {
+          msg.content = {
+            status: "already_in",
+          };
+        }
         msg.type = "lists_invite_done";
-        msg.content = {
-          status: "ok",
-        };
         break;
     }
     console.log(
-      `Processed message ${msg.content} with id ${id}, the answer is ${msg}`
+      `Processed message ${JSON.stringify(
+        msg.content
+      )} with id ${id}, the answer is ${msg}`
     );
     channel.sendToQueue(
       data.properties.replyTo,
