@@ -69,6 +69,20 @@ connect().then(async () =>
         msg.type = "lists_posts_done";
         msg.content = new_list;
         break;
+
+      case "lists_invite":
+        // TODO: Check if already participant
+        let usr_id = msg.content.usr_id;
+        let list_id = msg.content.list_id;
+        await User.updateOne(
+          { _id: usr_id },
+          { $push: { user_lists: { _id: list_id, owner: false } } }
+        );
+        msg.type = "lists_invite_done";
+        msg.content = {
+          status: "ok",
+        };
+        break;
     }
     console.log(
       `Processed message ${msg.content} with id ${id}, the answer is ${msg}`
