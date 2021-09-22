@@ -97,13 +97,11 @@ connect().then(async () =>
         l_id = msg.content.list_id;
         let l = await List.findById(mongoose.Types.ObjectId(l_id));
         // TODO: try, catch, checks, transaction?
-        // console.log(l.list_participants);
         //TODO: check if usr_id is owner
         //TODO: return user object?
         if (l !== null) {
           try {
             l.list_participants.map(async (e) => {
-              // console.log(e._id.toString());
               await User.findOneAndUpdate(
                 { _id: mongoose.Types.ObjectId(e._id) },
                 {
