@@ -59,7 +59,6 @@ connect().then(async () =>
             },
           ],
         });
-        new_list;
         await new_list.save();
         let id = new_list._id;
         await User.updateOne(
