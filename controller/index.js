@@ -39,6 +39,10 @@ app.put("/lists", (req, res) => {
   q_send_rcv(channel, QUEUE, req.body, "lists_put", res);
 });
 
+app.delete("/lists", (req, res) => {
+  q_send_rcv(channel, QUEUE, req.body, "lists_delete", res);
+});
+
 app.post("/lists_invite", (req, res) => {
   q_send_rcv(channel, QUEUE, req.body, "lists_invite", res);
 });

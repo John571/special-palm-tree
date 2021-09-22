@@ -93,6 +93,35 @@ connect().then(async () =>
         msg.type = "lists_put_done";
         break;
 
+      case "lists_delete":
+        l_id = msg.content.list_id;
+        let l = await List.findById(mongoose.Types.ObjectId(l_id));
+        // TODO: try, catch, checks, transaction?
+        // console.log(l.list_participants);
+        //TODO: check if usr_id is owner
+        //TODO: return user object?
+        if (l !== null) {
+          try {
+            l.list_participants.map(async (e) => {
+              // console.log(e._id.toString());
+              await User.findOneAndUpdate(
+                { _id: mongoose.Types.ObjectId(e._id) },
+                {
+                  $pull: { user_lists: { _id: mongoose.Types.ObjectId(l_id) } },
+                }
+              );
+            });
+            await List.deleteOne({ _id: l_id });
+          } catch (er) {
+            console.log("fuk", er);
+          }
+        }
+        msg.type = "lists_delete_done";
+        msg.content = {
+          status: "ok",
+        };
+        break;
+
       case "lists_invite":
         usr_id = msg.content.usr_id;
         l_id = msg.content.list_id;
@@ -103,14 +132,15 @@ connect().then(async () =>
         if (check == null) {
           await User.updateOne(
             { _id: mongoose.Types.ObjectId(usr_id) },
-            { $push: { user_lists: { _id: _id, owner: false } } }
+            { $push: { user_lists: { _id: l_id, owner: false } } }
           );
-          await List.updateOne(
+          let l = await List.findOneAndUpdate(
             { _id: l_id },
             { $push: { list_participants: { _id: usr_id, owner: false } } }
           );
           msg.content = {
             status: "ok",
+            list: l,
           };
         } else {
           msg.content = {
