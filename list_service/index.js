@@ -35,10 +35,17 @@ let connect = async () => {
 
 connect().then(async () =>
   channel.consume(QUEUE, async (data) => {
+    //TODO: add try/catch to every query
+    //TODO: make a function for each case?
     let msg = JSON.parse(data.content);
     let id = data.properties.correlationId;
     let answer = null;
-    console.log(`received message ${msg.content} with id ${id}`);
+    console.log(`received message ${data.content} with id ${id}`);
+    let l_id = null;
+    let usr_id = null;
+    let l_name = null;
+    let l_description = null;
+    let check = null;
     switch (msg.type) {
       case "lists_get":
         answer = await User.find(
@@ -69,20 +76,37 @@ connect().then(async () =>
         msg.content = new_list;
         break;
 
+      case "lists_put":
+        l_id = msg.content.list_id;
+        l_name = msg.content.list_name;
+        l_description = msg.content.list_description;
+        check = await List.findOne({ _id: mongoose.Types.ObjectId(l_id) });
+        // TODO: try catch, checks
+        check.list_name = l_name;
+        check.list_description = l_description;
+        await check.save();
+        console.log(check);
+        msg.content = {
+          status: "ok",
+          list: check,
+        };
+        msg.type = "lists_put_done";
+        break;
+
       case "lists_invite":
-        let usr_id = msg.content.usr_id;
-        let list_id = msg.content.list_id;
-        let check = await User.findOne({
+        usr_id = msg.content.usr_id;
+        l_id = msg.content.list_id;
+        check = await User.findOne({
           _id: mongoose.Types.ObjectId(usr_id),
-          "user_lists._id": mongoose.Types.ObjectId(list_id),
+          "user_lists._id": mongoose.Types.ObjectId(l_id),
         });
         if (check == null) {
           await User.updateOne(
             { _id: mongoose.Types.ObjectId(usr_id) },
-            { $push: { user_lists: { _id: list_id, owner: false } } }
+            { $push: { user_lists: { _id: _id, owner: false } } }
           );
           await List.updateOne(
-            { _id: list_id },
+            { _id: l_id },
             { $push: { list_participants: { _id: usr_id, owner: false } } }
           );
           msg.content = {
