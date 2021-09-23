@@ -6,7 +6,14 @@ const ListSchema = Schema({
   list_name: { type: String, required: true },
   list_description: { type: String, default: "Another Shopping List" },
   date_created: { type: Date, default: Date.now },
-  list_items: [{ type: String }],
+  list_items: [
+    {
+      _id: { type: Schema.Types.ObjectId, ref: "Item" },
+      added_by: { type: Schema.Types.ObjectId, ref: "User" },
+      amount: { type: Schema.Types.Number, default: 1 },
+      completed: { type: Schema.Types.Boolean, default: false },
+    },
+  ],
   list_participants: [
     {
       _id: { type: Schema.Types.ObjectId, ref: "User" },

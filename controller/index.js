@@ -28,23 +28,33 @@ app.use(express.json());
 app.get("/", (req, res) => res.send("Hello from shopingApp Controller"));
 
 app.get("/lists", (req, res) => {
+  // GET lists of a user by id
   q_send_rcv(channel, QUEUE, req.body.usr_id, "lists_get", res);
 });
 
 app.post("/lists", (req, res) => {
+  // Create a new list
   q_send_rcv(channel, QUEUE, req.body, "lists_post", res);
 });
 
 app.put("/lists", (req, res) => {
+  // EDIT lists
   q_send_rcv(channel, QUEUE, req.body, "lists_put", res);
 });
 
 app.delete("/lists", (req, res) => {
+  // DELETE lists
   q_send_rcv(channel, QUEUE, req.body, "lists_delete", res);
 });
 
 app.post("/lists_invite", (req, res) => {
+  // invite other users to lists
   q_send_rcv(channel, QUEUE, req.body, "lists_invite", res);
+});
+
+app.post("/lists_items", (req, res) => {
+  // Add item to lists
+  q_send_rcv(channel, QUEUE, req.body, "items_add", res);
 });
 
 app.listen(4000, () =>
