@@ -193,6 +193,25 @@ connect().then(async () =>
         msg.type = "items_update_done";
         msg.content = answer;
         break;
+      case "items_delete":
+        //TODO: checks, etc...
+        l_id = msg.content.list_id;
+        i_id = msg.content.item_id;
+        answer = await List.updateOne(
+          {
+            _id: mongoose.Types.ObjectId(l_id),
+          },
+          { $pull: { list_items: { _id: mongoose.Types.ObjectId(i_id) } } }
+        );
+        answer = await List.findOne(
+          {
+            _id: mongoose.Types.ObjectId(l_id),
+          },
+          { list_items: 1 }
+        );
+        msg.type = "items_delete_done";
+        msg.content = answer;
+        break;
     }
     console.log(
       `Processed message ${JSON.stringify(
