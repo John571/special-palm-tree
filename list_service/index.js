@@ -170,6 +170,7 @@ connect().then(async () =>
         msg.type = "items_add_done";
         msg.content = answer.list_items;
         break;
+
       case "items_update":
         // TODO: checks, etc...
         l_id = msg.content.list_id;
@@ -193,6 +194,7 @@ connect().then(async () =>
         msg.type = "items_update_done";
         msg.content = answer;
         break;
+
       case "items_delete":
         //TODO: checks, etc...
         l_id = msg.content.list_id;
