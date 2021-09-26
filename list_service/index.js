@@ -167,9 +167,31 @@ connect().then(async () =>
           },
           { path: "list_items.added_by", select: { user_name: 1 } },
         ]);
-        console.log(answer);
         msg.type = "items_add_done";
         msg.content = answer.list_items;
+        break;
+      case "items_update":
+        // TODO: checks, etc...
+        l_id = msg.content.list_id;
+        i_id = msg.content.item_id;
+        answer = await List.updateOne(
+          {
+            _id: mongoose.Types.ObjectId(l_id),
+            "list_items._id": mongoose.Types.ObjectId(i_id),
+          },
+          {
+            $set: {
+              "list_items.$.amount": msg.content.state.amount,
+              "list_items.$.completed": msg.content.state.completed,
+            },
+          }
+        );
+        answer = await List.findOne({
+          _id: mongoose.Types.ObjectId(l_id),
+          "list_items._id": mongoose.Types.ObjectId(i_id),
+        });
+        msg.type = "items_update_done";
+        msg.content = answer;
         break;
     }
     console.log(

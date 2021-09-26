@@ -57,6 +57,11 @@ app.post("/lists_items", (req, res) => {
   q_send_rcv(channel, QUEUE, req.body, "items_add", res);
 });
 
+app.put("/lists_items", (req, res) => {
+  // Update item in list
+  q_send_rcv(channel, QUEUE, req.body, "items_update", res);
+});
+
 app.listen(4000, () =>
   console.log("[*]Shopping Controller is listening on port 4000")
 );
