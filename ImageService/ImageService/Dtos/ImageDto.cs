@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace ImageService.Dtos
         public int Id { get; init; }
         public int ProudctId { get; init; }
         public string Message { get; init; }
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
         public DateTime CreateDate { get; set; }
     }
 }
