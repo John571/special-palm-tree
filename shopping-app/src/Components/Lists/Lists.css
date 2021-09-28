@@ -1,0 +1,15 @@
+.lists-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(auto-fill, 10vh);
+  width: 35%;
+  height: 80vh;
+  margin: 45px;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid black;
+  overflow: scroll;
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.04204);
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
