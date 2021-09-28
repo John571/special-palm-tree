@@ -11,7 +11,6 @@ C:\Users\Yu7na\source\repos\ImageService\ImageService\bin\Debug\net5.0\Microsoft
 C:\Users\Yu7na\source\repos\ImageService\ImageService\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\Yu7na\source\repos\ImageService\ImageService\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Yu7na\source\repos\ImageService\ImageService\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
-C:\Users\Yu7na\source\repos\ImageService\ImageService\obj\Debug\net5.0\ImageService.csproj.AssemblyReference.cache
 C:\Users\Yu7na\source\repos\ImageService\ImageService\obj\Debug\net5.0\ImageService.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Yu7na\source\repos\ImageService\ImageService\obj\Debug\net5.0\ImageService.AssemblyInfoInputs.cache
 C:\Users\Yu7na\source\repos\ImageService\ImageService\obj\Debug\net5.0\ImageService.AssemblyInfo.cs
@@ -39,3 +38,4 @@ C:\Users\Yu7na\source\repos\ImageService\ImageService\bin\Debug\net5.0\runtimes\
 C:\Users\Yu7na\source\repos\ImageService\ImageService\bin\Debug\net5.0\runtimes\linux\native\libmongocrypt.so
 C:\Users\Yu7na\source\repos\ImageService\ImageService\bin\Debug\net5.0\runtimes\osx\native\libmongocrypt.dylib
 C:\Users\Yu7na\source\repos\ImageService\ImageService\bin\Debug\net5.0\runtimes\win\native\mongocrypt.dll
+C:\Users\Yu7na\source\repos\ImageService\ImageService\obj\Debug\net5.0\ImageService.csproj.AssemblyReference.cache

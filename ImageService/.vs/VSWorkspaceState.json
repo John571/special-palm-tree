@@ -8,6 +8,6 @@
     "\\ImageService\\Properties",
     "\\ImageService\\Repositories"
   ],
-  "SelectedNode": "\\ImageService\\Controllers\\ImagesController.cs",
+  "SelectedNode": "\\ImageService\\Startup.cs",
   "PreviewInSolutionExplorer": false
 }

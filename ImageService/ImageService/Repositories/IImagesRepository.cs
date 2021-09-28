@@ -6,8 +6,11 @@ namespace ImageService.Repositories
     public interface IImagesRepository
     {
         Image GetImage(int id);
-        IEnumerable<Image> GetImages();
 
         void CreatImage(Image image);
+
+        void UpdateImage(Image image);
+
+        void DeleteImage(int id);
     }
 }
