@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import List from "./List/List";
+import List from "../List/List";
 import "./Lists.css";
 let lists = null;
 let fetchListsById = (u_id) => {

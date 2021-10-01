@@ -1,5 +1,5 @@
 import React from "react";
-import list_avatar from "../../../list_avatar.png";
+import list_avatar from "../../../src/list_avatar.png";
 import "./List_style.css";
 const List = (props) => {
   return (
