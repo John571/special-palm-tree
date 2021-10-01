@@ -9,23 +9,30 @@ img {
 }
 
 .list_container {
+  cursor: pointer;
   border: solid black 1px;
   padding: 5px;
   height: 8vh;
 }
 
 .list_name {
-  position: relative;
-  left: -190px;
-  top: 15px;
+  flex: 1;
   font-weight: 500;
   font-size: large;
+  margin-bottom: 0px;
 }
 
 .created_by {
+  flex: 1;
+  margin-top: 0px;
   font-weight: 500;
   font-size: small;
-  position: relative;
-  left: -270px;
-  top: 30px;
+  margin-left: 30px;
+}
+
+.list_details {
+  display: flex;
+  flex-flow: column wrap;
+  margin: 0 10% 50px 10%;
+  align-content: flex-start;
 }
