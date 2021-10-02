@@ -23,6 +23,7 @@ const Lists = (props) => {
         <List />
       </div>
       <div className="lists_add">
+        {/* Replace button with icon */}
         <button className="add_list_button">Add List</button>
       </div>
     </div>
