@@ -1,20 +1,55 @@
-.lists-container {
+.lists_grid {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(auto-fill, 10vh);
+  grid-template-areas:
+    "content"
+    "list_add";
   min-width: 250px;
   height: 80vh;
   margin: 45px;
-  margin-right: 0px;
+  margin-right: 10px;
   padding: 5px;
   border-radius: 10px;
   border: 1px solid black;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+}
+
+.lists-container {
+  min-height: 72vh;
+  grid-area: content;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(auto-fill, 10vh);
   overflow: auto;
   overflow-x: hidden;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none; /* Firefox */
 }
+
+.lists_add {
+  border-top: 1px solid black;
+  display: grid;
+  grid-area: list_add;
+  min-height: 7vh;
+  max-height: 7vh;
+  justify-self: last baseline;
+  padding-top: 2%;
+}
+
+.add_list_button {
+  cursor: pointer;
+  border: 1px solid black;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.add_list_button:hover {
+  box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.3);
+}
+
 h2 {
   text-align: center;
+}
+
+.list_grid {
+  position: absolute;
+  bottom: 0px;
 }

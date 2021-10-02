@@ -8,14 +8,23 @@ let fetchListsById = (u_id) => {
 const Lists = (props) => {
   useEffect(fetchListsById);
   return (
-    <div className="lists-container">
-      <h2>
-        Your lists <hr />
-      </h2>
-      <List />
-      <List />
-      <List />
-      <List />
+    <div className="lists_grid">
+      <div className="lists-container">
+        <h2 style={{ borderBottom: "1px solid black" }}>Your lists</h2>
+        <List />
+        <List />
+        <List />
+        <List />
+        <List />
+        <List />
+        <List />
+        <List />
+        <List />
+        <List />
+      </div>
+      <div className="lists_add">
+        <button className="add_list_button">Add List</button>
+      </div>
     </div>
   );
 };

@@ -12,6 +12,10 @@ const ListSchema = Schema({
       added_by: { type: Schema.Types.ObjectId, ref: "User" },
       amount: { type: Schema.Types.Number, default: 1 },
       completed: { type: Schema.Types.Boolean, default: false },
+      usr_img: {
+        _id: { type: Schema.Types.ObjectId },
+        url: { type: Schema.Types.url, default: null },
+      },
     },
   ],
   list_participants: [
