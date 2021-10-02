@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\ImageService",
+    "\\ImageService\\Controllers",
+    "\\ImageService\\Dtos",
+    "\\ImageService\\Entities",
+    "\\ImageService\\Properties",
+    "\\ImageService\\Repositories"
+  ],
+  "SelectedNode": "\\ImageService\\Controllers\\ImagesController.cs",
+  "PreviewInSolutionExplorer": false
+}
