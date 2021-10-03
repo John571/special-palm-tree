@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import amqp from "amqplib";
 import express from "express";
 import q_send_rcv from "./handlers/q_send_rcv.js";
-
+import cors from "cors";
 dotenv.config();
 let q = null;
 let channel = null;
@@ -23,13 +23,14 @@ let connect = async () => {
 
 await connect();
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => res.send("Hello from shopingApp Controller"));
 
-app.get("/lists", (req, res) => {
+app.post("/lists", (req, res) => {
   // GET lists of a user by id
-  q_send_rcv(channel, QUEUE, req.body.usr_id, "lists_get", res);
+  q_send_rcv(channel, QUEUE, req.body, "lists_get", res);
 });
 
 app.post("/lists", (req, res) => {

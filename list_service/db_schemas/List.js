@@ -14,7 +14,7 @@ const ListSchema = Schema({
       completed: { type: Schema.Types.Boolean, default: false },
       usr_img: {
         _id: { type: Schema.Types.ObjectId },
-        url: { type: Schema.Types.url, default: null },
+        url: { type: Schema.Types.String, default: null },
       },
     },
   ],

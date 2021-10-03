@@ -1,5 +1,6 @@
 import crypto from "crypto";
 let q_send_rcv = async (channel, q_name, content, type, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
   let q = null;
   q = await channel.assertQueue("", { exclusive: true });
   let msg = {
