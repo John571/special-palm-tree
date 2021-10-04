@@ -1,11 +1,14 @@
 import { React, useState, useEffect } from "react";
+import ReactModal from "react-modal";
 import axios from "axios";
+import AddProduct from "./AddProduct";
 import "./Products.css";
 import Item from "../Item/Item";
 
 const Products = ({ l_id }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [items, setItems] = useState([]);
+  const [addItemModal, setaddItemModal] = useState(false);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getLists = async (list_id) => {
     console.log("reloading");
@@ -30,38 +33,51 @@ const Products = ({ l_id }) => {
     await getLists(l_id);
   }, [l_id]);
   return (
-    <div className="products_container">
-      <div className="products_list_chat">
-        <div className="products_list">
-          <h2>Item List</h2>
+    <>
+      <ReactModal
+        isOpen={addItemModal}
+        onRequestClose={() => setaddItemModal(false)}
+        shouldCloseOnOverlayClick={true}
+        shouldCloseOnEsc={true}
+      >
+        <AddProduct />
+      </ReactModal>
+      <div className="products_container">
+        <div className="products_list_chat">
+          <div className="products_list">
+            <h2>Item List</h2>
+          </div>
+          <div className="products_chat">
+            <h2>List Chat</h2>
+          </div>
         </div>
-        <div className="products_chat">
-          <h2>List Chat</h2>
+        <div className="products_items_list">
+          {isLoading ? (
+            <div>Loading items...</div>
+          ) : items.length === 0 ? (
+            "No items here yet"
+          ) : (
+            items.map((i) => (
+              <Item
+                data={i}
+                key={i._id._id}
+                reload={async () => await getLists(l_id)}
+                l_id={l_id}
+              />
+            ))
+          )}
+        </div>
+        <div className="products_add_product">
+          {/* Replace button with icon */}
+          <button
+            className="products_add_button"
+            onClick={() => setaddItemModal(true)}
+          >
+            <span>Add Item</span>
+          </button>
         </div>
       </div>
-      <div className="products_items_list">
-        {isLoading ? (
-          <div>Loading items...</div>
-        ) : items.length === 0 ? (
-          "No items here yet"
-        ) : (
-          items.map((i) => (
-            <Item
-              data={i}
-              key={i._id._id}
-              reload={async () => await getLists(l_id)}
-              l_id={l_id}
-            />
-          ))
-        )}
-      </div>
-      <div className="products_add_product">
-        {/* Replace button with icon */}
-        <button className="products_add_button">
-          <span>Add Item</span>
-        </button>
-      </div>
-    </div>
+    </>
   );
 };
 
