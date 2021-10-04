@@ -1,8 +1,34 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
+import axios from "axios";
 import "./Products.css";
 import Item from "../Item/Item";
 
-const Products = (props) => {
+const Products = ({ l_id }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [items, setItems] = useState([]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const getLists = async (list_id) => {
+    console.log("reloading");
+    setIsLoading(true);
+    const result = await axios({
+      url: "http://localhost:4000/lists_items_get",
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      data: { list_id: list_id },
+    });
+    if (result.data.content && "list_items" in result.data.content) {
+      console.log(
+        `setting items to ${JSON.stringify(result.data.content.list_items)}`
+      );
+      setItems(result.data.content.list_items);
+      console.log(typeof items);
+    }
+    setIsLoading(false);
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
+    await getLists(l_id);
+  }, [l_id]);
   return (
     <div className="products_container">
       <div className="products_list_chat">
@@ -14,7 +40,20 @@ const Products = (props) => {
         </div>
       </div>
       <div className="products_items_list">
-        <Item />
+        {isLoading ? (
+          <div>Loading items...</div>
+        ) : items.length === 0 ? (
+          "No items here yet"
+        ) : (
+          items.map((i) => (
+            <Item
+              data={i}
+              key={i._id._id}
+              reload={async () => await getLists(l_id)}
+              l_id={l_id}
+            />
+          ))
+        )}
       </div>
       <div className="products_add_product">
         {/* Replace button with icon */}

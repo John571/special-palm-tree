@@ -58,6 +58,11 @@ app.post("/lists_items", (req, res) => {
   q_send_rcv(channel, QUEUE, req.body, "items_add", res);
 });
 
+app.post("/lists_items_get", (req, res) => {
+  // Get list of items in list
+  q_send_rcv(channel, QUEUE, req.body, "items_get", res);
+});
+
 app.put("/lists_items", (req, res) => {
   // Update item in list
   q_send_rcv(channel, QUEUE, req.body, "items_update", res);

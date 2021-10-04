@@ -220,6 +220,14 @@ connect().then(async () =>
           msg.type = "items_delete_done";
           msg.content = answer;
           break;
+        case "items_get":
+          l_id = msg.content.list_id;
+          answer = await List.findOne({
+            _id: mongoose.Types.ObjectId(l_id),
+          }).populate({ path: "list_items._id" });
+          msg.type = "items_get_done";
+          msg.content = answer;
+          break;
       }
     console.log(
       `Processed message ${JSON.stringify(

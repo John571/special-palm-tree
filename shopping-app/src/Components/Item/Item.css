@@ -7,7 +7,7 @@
   padding: 5px;
   margin: 5px;
   margin-top: 20px;
-  height: 8vh;
+  height: 9vh;
   transition-timing-function: ease;
   transition: 0.2s;
 }
@@ -21,17 +21,25 @@
   display: flex;
   flex-flow: column;
   justify-content: space-evenly;
-  grid-template-rows: 1fr 1fr;
 }
 
 .product_name {
   flex: 1;
   margin-left: 10px;
-  margin-top: 15px;
-  margin-bottom: 5px;
+  margin-top: 10px;
+  margin-bottom: 0px;
   font-weight: 500;
 }
 .product_details {
+  flex: 1;
+  margin-left: 10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: small;
+  font-weight: 500;
+}
+
+.product_brand {
   flex: 1;
   margin-left: 10px;
   margin-top: 0px;
@@ -40,23 +48,40 @@
 }
 
 .item_v_button {
+  height: 95%;
   cursor: pointer;
   border: 0px solid black;
   transition-timing-function: ease;
   transition: 0.2s;
 }
 .item_x_button {
+  height: 95%;
   cursor: pointer;
   border: 0px solid black;
   transition-timing-function: ease;
   transition: 0.2s;
+}
+
+.marked {
   box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+}
+
+.red {
+  background-color: lightcoral;
+}
+
+.green {
+  background-color: lightgreen;
 }
 
 .item_v_button:hover {
   box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
+  background-color: lightgreen;
 }
 .item_x_button:hover {
+  box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
+  background-color: lightcoral;
 }
