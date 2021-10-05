@@ -1,0 +1,4 @@
+.add_list_container {
+  display: grid;
+  grid-template-rows: 10vh 35vh 5vh;
+}

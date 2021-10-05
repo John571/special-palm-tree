@@ -10,16 +10,20 @@ const Lists = ({ id, setList }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [addListmodal, setaddListModal] = useState(false);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async () => {
+  const reload = async () => {
     setIsLoading(true);
     const result = await axios({
-      url: "http://localhost:4000/lists",
+      url: "http://localhost:4000/lists_get",
       headers: { "Content-Type": "application/json" },
       method: "POST",
       data: { usr_id: id },
     });
     setLists(result.data.content);
     setIsLoading(false);
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
+    await reload();
   }, [id]);
   return (
     <>
@@ -36,10 +40,12 @@ const Lists = ({ id, setList }) => {
             bottom: "auto",
             marginRight: "-50%",
             transform: "translate(-50%, -50%)",
+            width: "50%",
+            height: "50%",
           },
         }}
       >
-        <AddList />
+        <AddList id={id} reload={reload} close={() => setaddListModal(false)} />
       </ReactModal>
       <div className="lists_grid">
         <div className="lists-container">

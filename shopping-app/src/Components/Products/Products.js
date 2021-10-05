@@ -39,6 +39,18 @@ const Products = ({ l_id }) => {
         onRequestClose={() => setaddItemModal(false)}
         shouldCloseOnOverlayClick={true}
         shouldCloseOnEsc={true}
+        style={{
+          content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+            width: "50%",
+            height: "50%",
+          },
+        }}
       >
         <AddProduct />
       </ReactModal>

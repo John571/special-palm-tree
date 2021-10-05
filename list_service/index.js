@@ -228,6 +228,12 @@ connect().then(async () =>
           msg.type = "items_get_done";
           msg.content = answer;
           break;
+        case "items_search":
+          let txt = msg.content.item_name;
+          answer = await Item.find({ $text: { $search: txt } });
+          msg.type = "items_search_done";
+          msg.content = answer;
+          break;
       }
     console.log(
       `Processed message ${JSON.stringify(

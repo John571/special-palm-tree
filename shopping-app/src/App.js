@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from "react";
+import { useState } from "react";
 import "./App.css";
 import Lists from "./Components/Lists/Lists";
 import Products from "./Components/Products/Products";

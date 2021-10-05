@@ -28,7 +28,7 @@ app.use(express.json());
 
 app.get("/", (req, res) => res.send("Hello from shopingApp Controller"));
 
-app.post("/lists", (req, res) => {
+app.post("/lists_get", (req, res) => {
   // GET lists of a user by id
   q_send_rcv(channel, QUEUE, req.body, "lists_get", res);
 });
@@ -56,6 +56,11 @@ app.post("/lists_invite", (req, res) => {
 app.post("/lists_items", (req, res) => {
   // Add item to lists
   q_send_rcv(channel, QUEUE, req.body, "items_add", res);
+});
+
+app.post("/lists_items_search", (req, res) => {
+  // Search Available Items
+  q_send_rcv(channel, QUEUE, req.body, "items_search", res);
 });
 
 app.post("/lists_items_get", (req, res) => {

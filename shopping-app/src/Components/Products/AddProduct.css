@@ -1,0 +1,17 @@
+.add_product_container {
+  display: grid;
+  grid-template-rows: 5vh 5vh 20vh 5vh;
+}
+
+.product_search {
+  margin-top: 10px;
+  width: 8fr;
+  font-size: large;
+  font-weight: 300;
+}
+
+.items_container {
+  display: grid;
+  grid-template-columns: 5vh 5vh 5vh;
+  grid-auto-flow: row;
+}
