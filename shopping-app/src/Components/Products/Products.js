@@ -5,7 +5,7 @@ import AddProduct from "./AddProduct";
 import "./Products.css";
 import Item from "../Item/Item";
 
-const Products = ({ l_id }) => {
+const Products = ({ l_id, u_id }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [items, setItems] = useState([]);
   const [addItemModal, setaddItemModal] = useState(false);
@@ -24,7 +24,6 @@ const Products = ({ l_id }) => {
         `setting items to ${JSON.stringify(result.data.content.list_items)}`
       );
       setItems(result.data.content.list_items);
-      console.log(typeof items);
     }
     setIsLoading(false);
   };
@@ -52,7 +51,11 @@ const Products = ({ l_id }) => {
           },
         }}
       >
-        <AddProduct />
+        <AddProduct
+          l_id={l_id}
+          u_id={u_id}
+          reload={async () => await getLists(l_id)}
+        />
       </ReactModal>
       <div className="products_container">
         <div className="products_list_chat">

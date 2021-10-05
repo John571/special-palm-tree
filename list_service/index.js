@@ -161,20 +161,31 @@ connect().then(async () =>
           l_id = msg.content.list_id;
           i_id = msg.content.item_id;
           usr_id = msg.content.usr_id;
-          answer = await List.findOneAndUpdate(
-            { _id: mongoose.Types.ObjectId(l_id) },
-            {
-              $push: { list_items: { _id: i_id, added_by: usr_id } },
-            }
-          );
-          answer = await List.findOne({ _id: l_id }).populate([
-            {
-              path: "list_items._id",
-            },
-            { path: "list_items.added_by", select: { user_name: 1 } },
-          ]);
-          msg.type = "items_add_done";
-          msg.content = answer.list_items;
+          answer = await List.findOne({
+            _id: mongoose.Types.ObjectId(l_id),
+            "list_items._id": mongoose.Types.ObjectId(i_id),
+          });
+          if (answer) {
+            msg.type = "items_add_done";
+            msg.content = {
+              status: "already_in",
+            };
+          } else {
+            answer = await List.findOneAndUpdate(
+              { _id: mongoose.Types.ObjectId(l_id) },
+              {
+                $push: { list_items: { _id: i_id, added_by: usr_id } },
+              }
+            );
+            answer = await List.findOne({ _id: l_id }).populate([
+              {
+                path: "list_items._id",
+              },
+              { path: "list_items.added_by", select: { user_name: 1 } },
+            ]);
+            msg.type = "items_add_done";
+            msg.content = answer.list_items;
+          }
           break;
 
         case "items_update":

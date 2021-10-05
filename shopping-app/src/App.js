@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
       <Lists id={u_id} setList={setl_id} />
-      <Products l_id={l_id} />
+      <Products l_id={l_id} u_id={u_id} />
     </div>
   );
 }

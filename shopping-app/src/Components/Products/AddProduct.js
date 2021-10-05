@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import ListItem from "./ListItem";
 import "./AddProduct.css";
-const AddProduct = (props) => {
+const AddProduct = ({ u_id, l_id, reload }) => {
   const [search, setSearch] = useState("");
   const [items, setItems] = useState([]);
+  const [status, setStatus] = useState("");
   let s_ref = React.createRef();
   const get_items = async () => {
     const result = await axios({
@@ -14,15 +16,37 @@ const AddProduct = (props) => {
         item_name: search,
       },
     });
-    if (result.data.content.length) console.log(result.data.content);
+    if (result.data.content.length) setItems(result.data.content);
+    else setItems([]);
   };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     await get_items();
   }, [search]);
+
+  const add_item_to_list = async (i_id, i_name) => {
+    const result = await axios({
+      url: "http://localhost:4000/lists_items",
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      data: {
+        usr_id: u_id,
+        list_id: l_id,
+        item_id: i_id,
+      },
+    });
+    if (result.data.content.status === "already_in")
+      setStatus(`${i_name} is already in list`);
+    else {
+      setStatus(`${i_name} added to list`);
+      await reload();
+    }
+  };
+
   return (
     <div className="add_product_container">
       <h2>Add Item</h2>
+      <span className="add_product_status">{status}</span>
       <input
         ref={s_ref}
         type="text"
@@ -31,7 +55,15 @@ const AddProduct = (props) => {
         value={search}
         onInput={() => setSearch(s_ref.current.value)}
       />
-      <div className="items_container"></div>
+      <div className="items_container">
+        {items.map((i) => (
+          <ListItem
+            item_data={i}
+            key={i._id}
+            addItem={async () => add_item_to_list(i._id, i.item_name)}
+          />
+        ))}
+      </div>
     </div>
   );
 };
