@@ -34,12 +34,12 @@ const Nav = ({ set_id, u_id, u_name, set_name }) => {
           <a
             href="#"
             onClick={() => {
-              localStorage.setItem("user_token", -1);
-              localStorage.setItem("user_id", -1);
-              localStorage.setItem("user_name", "");
+              sessionStorage.setItem("user_token", -1);
+              sessionStorage.setItem("user_id", -1);
+              sessionStorage.setItem("user_name", "");
               set_id(-1);
               set_name("");
-              console.log("logout", localStorage.getItem("user_id"));
+              console.log("logout", sessionStorage.getItem("user_id"));
             }}
           >
             Log Out

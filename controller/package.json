@@ -4,7 +4,8 @@
   "description": "A controller to communicate between front and other services via a queue",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start_dev": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,7 +16,11 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.0.9"
+    "mongoose": "^6.0.9",
+    "socket.io": "^4.2.0"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
 }

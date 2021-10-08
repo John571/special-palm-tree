@@ -1,16 +1,22 @@
 import { useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import ReactModal from "react-modal";
+import socketio from "socket.io-client";
 import "./App.css";
 import Register from "./Components/Register/Register";
 import Login from "./Components/Register/Login";
 import Nav from "./Components/Nav/Nav";
 import Home from "./acon";
 import React from "react";
+const SOC_END = "http://127.0.0.1:4000";
 function App() {
+  // const socket = socketio(SOC_END);
+  // socket.on("connection", () => {
+  //   console.log("I'm connected");
+  // });
   const [l_id, setl_id] = useState(null);
-  const [u_id, setu_id] = useState(localStorage.getItem("user_id") || -1);
+  const [u_id, setu_id] = useState(sessionStorage.getItem("user_id") || -1);
   const [u_name, setU_name] = useState(null);
+
   // let u_id = "613e393948e88d77ff784bba";
   return (
     <>

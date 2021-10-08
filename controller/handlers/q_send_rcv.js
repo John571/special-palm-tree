@@ -1,5 +1,5 @@
 import crypto from "crypto";
-let q_send_rcv = async (channel, q_name, content, type, res) => {
+let q_send_rcv = async (channel, q_name, content, type, res, io = false) => {
   res.header("Access-Control-Allow-Origin", "*");
   let q = null;
   q = await channel.assertQueue("", { exclusive: true });
@@ -29,6 +29,13 @@ let q_send_rcv = async (channel, q_name, content, type, res) => {
       );
       channel.ack(data);
       channel.deleteQueue(q.queue);
+      if (
+        io !== false &&
+        (content.list_id || content.usr_id) &&
+        type !== "lists_get" &&
+        ms.type != "lists_get_done"
+      )
+        io.emit("message", content.list_id ? content.list_id : content.usr_id);
       res.json(ms);
     }
   });

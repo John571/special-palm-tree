@@ -7,6 +7,7 @@ const Item = ({ data, reload, l_id }) => {
   const [amount1, setAmount] = useState(data.amount);
   console.log(data.amount);
   const update = async (status, amnt = amount1, b = false) => {
+    console.log("UPDATINGGGG");
     setCompleted(status);
     console.log(
       `sending update to list ${l_id} to item ${data._id._id} with ${status}`

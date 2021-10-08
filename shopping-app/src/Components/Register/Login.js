@@ -26,9 +26,9 @@ const Login = ({ set_id, set_name }) => {
     });
     console.log(result.data);
     set_id(result.data._id);
-    localStorage.setItem("user_id", result.data._id);
-    localStorage.setItem("user_name", result.data.user_name);
-    localStorage.setItem("user_token", result.data.token);
+    sessionStorage.setItem("user_id", result.data._id);
+    sessionStorage.setItem("user_name", result.data.user_name);
+    sessionStorage.setItem("user_token", result.data.token);
     set_name(result.data.user_name);
     setLogin(true);
   };

@@ -1,3 +1,5 @@
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 import dotenv from "dotenv";
 import amqp from "amqplib";
 import express from "express";
@@ -9,6 +11,7 @@ import bcrypt from "bcrypt";
 import jsonwebtoken from "jsonwebtoken";
 import User from "./db_schemas/User.js";
 import verifyToken from "./middleware/auth.js";
+const { Server } = require("socket.io");
 dotenv.config();
 let q = null;
 let channel = null;
@@ -38,6 +41,11 @@ let connect = async () => {
 await connect();
 const app = express();
 const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+  },
+});
 app.use(cors());
 app.use(express.json());
 
@@ -128,7 +136,7 @@ app.delete("/lists", verifyToken, (req, res) => {
 
 app.post("/lists_invite", verifyToken, (req, res) => {
   // invite other users to lists
-  q_send_rcv(channel, QUEUE, req.body, "lists_invite", res);
+  q_send_rcv(channel, QUEUE, req.body, "lists_invite", res, io);
 });
 
 app.post("/users_search", verifyToken, (req, res) => {
@@ -138,7 +146,7 @@ app.post("/users_search", verifyToken, (req, res) => {
 
 app.post("/lists_items", (req, res) => {
   // Add item to lists
-  q_send_rcv(channel, QUEUE, req.body, "items_add", res);
+  q_send_rcv(channel, QUEUE, req.body, "items_add", res, io);
 });
 
 app.post("/lists_items_search", (req, res) => {
@@ -153,11 +161,12 @@ app.post("/lists_items_get", (req, res) => {
 
 app.put("/lists_items", (req, res) => {
   // Update item in list
-  q_send_rcv(channel, QUEUE, req.body, "items_update", res);
+  q_send_rcv(channel, QUEUE, req.body, "items_update", res, io);
 });
 
 app.delete("/lists_items", (req, res) => {
-  q_send_rcv(channel, QUEUE, req.body, "items_delete", res);
+  // Delete item in list
+  q_send_rcv(channel, QUEUE, req.body, "items_delete", res, io);
 });
 
 server.listen(4000, () =>

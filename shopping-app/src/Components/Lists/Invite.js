@@ -14,7 +14,7 @@ const Invite = ({ id, reload, close }) => {
       method: "POST",
       data: {
         item_name: search,
-        token: localStorage.getItem("user_token"),
+        token: sessionStorage.getItem("user_token"),
       },
     });
     if (result.data.content.length) setUsers(result.data.content);
@@ -33,7 +33,7 @@ const Invite = ({ id, reload, close }) => {
       data: {
         usr_id: u_id,
         list_id: id,
-        token: localStorage.getItem("user_token"),
+        token: sessionStorage.getItem("user_token"),
       },
     });
     if (result.data.content.status === "already_in")

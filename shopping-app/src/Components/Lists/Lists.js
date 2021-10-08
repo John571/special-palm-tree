@@ -7,7 +7,7 @@ import Invite from "./Invite";
 import ListInfo from "./ListInfo";
 import "./Lists.css";
 
-const Lists = ({ id, setList }) => {
+const Lists = ({ id, setList, l_id }) => {
   const [lists, setLists] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [addListmodal, setaddListModal] = useState(false);
@@ -16,6 +16,7 @@ const Lists = ({ id, setList }) => {
   const [curList, setCurList] = useState(null);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const reload = async () => {
+    console.log("reloading");
     setIsLoading(true);
     const result = await axios({
       url: "http://localhost:4000/lists_get",
@@ -23,26 +24,29 @@ const Lists = ({ id, setList }) => {
       method: "POST",
       data: {
         usr_id: id,
-        token: localStorage.getItem("user_token"),
+        token: sessionStorage.getItem("user_token"),
       },
     });
     setLists(result.data.content);
     setIsLoading(false);
   };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async () => {
-    await reload();
-  }, [id]);
+
   const delete_list = async (l_id) => {
     const result = await axios({
       url: "http://localhost:4000/lists",
       headers: { "Content-Type": "application/json" },
       method: "DELETE",
-      data: { list_id: l_id, token: localStorage.getItem("user_token") },
+      data: { list_id: l_id, token: sessionStorage.getItem("user_token") },
     });
     await reload();
     setList(0);
   };
+
+  //eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
+    reload();
+  }, [id]);
+
   return (
     <>
       <ReactModal
