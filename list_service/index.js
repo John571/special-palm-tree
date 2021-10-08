@@ -252,6 +252,17 @@ connect().then(async () =>
           msg.type = "items_search_done";
           msg.content = answer;
           break;
+        case "lists_info":
+          l_id = msg.content.list_id;
+          answer = await List.findById(l_id)
+            .populate("list_participants._id", {
+              user_lists: 0,
+              list_items: 0,
+            })
+            .select({ list_items: 0 });
+          msg.type = "lists_info_done";
+          msg.content = answer;
+          break;
       }
     console.log(
       `Processed message ${JSON.stringify(

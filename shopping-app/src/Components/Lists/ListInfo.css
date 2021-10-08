@@ -1,0 +1,6 @@
+.list_participants {
+  display: grid;
+  grid-template-columns: 20fr 20fr 20fr;
+  grid-auto-flow: row;
+  grid-gap: 5px;
+}

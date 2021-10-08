@@ -33,6 +33,11 @@ app.post("/lists_get", (req, res) => {
   q_send_rcv(channel, QUEUE, req.body, "lists_get", res);
 });
 
+app.post("/lists_info", (req, res) => {
+  // GET list info
+  q_send_rcv(channel, QUEUE, req.body, "lists_info", res);
+});
+
 app.post("/lists", (req, res) => {
   // Create a new list
   q_send_rcv(channel, QUEUE, req.body, "lists_post", res);
