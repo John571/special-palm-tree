@@ -1,6 +1,7 @@
 .item_container {
   display: grid;
-  grid-template-columns: 1fr 10fr 3fr 3fr;
+  grid-gap: 3px;
+  grid-template-columns: 1fr 10fr 1fr 1fr 1fr 1fr;
   border: 1px solid black;
   cursor: pointer;
   border: solid gray 1px;
@@ -62,6 +63,19 @@
   transition: 0.2s;
 }
 
+.item_delete_button {
+  height: 95%;
+  cursor: pointer;
+  border: 0px solid black;
+  transition-timing-function: ease;
+  transition: 0.2s;
+}
+
+.item_delete_button:hover {
+  box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+}
+
 .marked {
   box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
@@ -84,4 +98,16 @@
   box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
   background-color: lightcoral;
+}
+.item_amount {
+  display: grid;
+  grid-template-rows: 20% 60% 20%;
+}
+
+.item_amount > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: large;
 }

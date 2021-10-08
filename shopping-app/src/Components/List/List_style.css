@@ -8,6 +8,8 @@ img {
 }
 
 .list_container {
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr;
   cursor: pointer;
   border: solid gray 1px;
   padding: 5px;
@@ -43,4 +45,9 @@ img {
   flex-flow: column wrap;
   margin: 0 10% 50px 10%;
   align-content: flex-start;
+}
+
+.list_delete {
+  height: 8vh;
+  cursor: pointer;
 }

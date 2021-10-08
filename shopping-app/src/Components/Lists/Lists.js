@@ -25,6 +25,15 @@ const Lists = ({ id, setList }) => {
   useEffect(async () => {
     await reload();
   }, [id]);
+  const delete_list = async (l_id) => {
+    const result = await axios({
+      url: "http://localhost:4000/lists",
+      headers: { "Content-Type": "application/json" },
+      method: "DELETE",
+      data: { list_id: l_id },
+    });
+    await reload();
+  };
   return (
     <>
       <ReactModal
@@ -57,6 +66,7 @@ const Lists = ({ id, setList }) => {
                   data={l._id}
                   key={l._id._id}
                   setList={() => setList(l._id._id)}
+                  delete_list={() => delete_list(l._id._id)}
                 />
               ) : (
                 "No lists yet"
