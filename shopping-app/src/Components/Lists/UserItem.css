@@ -1,0 +1,28 @@
+.user_item_container {
+  padding: 5px;
+  border: 1px solid black;
+  cursor: pointer;
+  max-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: 0.2s;
+}
+
+.user_item_container:hover {
+  border-radius: 5px;
+  box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 0.3);
+}
+
+.user_name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.user_description {
+  font-size: small;
+}
+
+.user_details {
+  font-size: smaller;
+}

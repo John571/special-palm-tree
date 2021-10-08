@@ -3,12 +3,15 @@ import ReactModal from "react-modal";
 import axios from "axios";
 import AddList from "./AddList";
 import List from "../List/List";
+import Invite from "./Invite";
 import "./Lists.css";
 
 const Lists = ({ id, setList }) => {
   const [lists, setLists] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [addListmodal, setaddListModal] = useState(false);
+  const [inviteModal, setinviteModal] = useState(false);
+  const [curList, setCurList] = useState(null);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const reload = async () => {
     setIsLoading(true);
@@ -56,6 +59,31 @@ const Lists = ({ id, setList }) => {
       >
         <AddList id={id} reload={reload} close={() => setaddListModal(false)} />
       </ReactModal>
+      <ReactModal
+        //Invite to List
+        isOpen={inviteModal}
+        onRequestClose={() => setinviteModal(false)}
+        shouldCloseOnOverlayClick={true}
+        shouldCloseOnEsc={true}
+        style={{
+          content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+            width: "50%",
+            height: "50%",
+          },
+        }}
+      >
+        <Invite
+          id={curList}
+          reload={reload}
+          close={() => setinviteModal(false)}
+        />
+      </ReactModal>
       <div className="lists_grid">
         <div className="lists-container">
           <h2 style={{ borderBottom: "1px solid black" }}>Your lists</h2>
@@ -67,6 +95,10 @@ const Lists = ({ id, setList }) => {
                   key={l._id._id}
                   setList={() => setList(l._id._id)}
                   delete_list={() => delete_list(l._id._id)}
+                  invite_open={() => {
+                    setinviteModal(true);
+                    setCurList(l._id._id);
+                  }}
                 />
               ) : (
                 "No lists yet"

@@ -48,6 +48,7 @@ connect().then(async () =>
     let l_name = null;
     let l_description = null;
     let check = null;
+    let txt = null;
     if (!msg) {
       msg = { type: "error" };
     } else
@@ -240,8 +241,14 @@ connect().then(async () =>
           msg.content = answer;
           break;
         case "items_search":
-          let txt = msg.content.item_name;
+          txt = msg.content.item_name;
           answer = await Item.find({ $text: { $search: txt } });
+          msg.type = "items_search_done";
+          msg.content = answer;
+          break;
+        case "users_search":
+          txt = msg.content.item_name;
+          answer = await User.find({ $text: { $search: txt } });
           msg.type = "items_search_done";
           msg.content = answer;
           break;

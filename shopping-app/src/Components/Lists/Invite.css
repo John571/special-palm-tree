@@ -1,0 +1,26 @@
+.add_user_container {
+  display: grid;
+  grid-template-rows: 5vh 3vh 5vh 20vh 5vh;
+}
+
+.user_search {
+  margin-top: 10px;
+  width: 8fr;
+  font-size: large;
+  font-weight: 300;
+}
+
+.users_container {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 20fr 20fr 20fr;
+  grid-auto-flow: row;
+  grid-gap: 5px;
+}
+
+.add_user_status {
+  margin-top: 5px;
+  font-weight: lighter;
+  font-size: smaller;
+  text-align: center;
+}

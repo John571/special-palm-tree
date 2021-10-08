@@ -53,6 +53,11 @@ app.post("/lists_invite", (req, res) => {
   q_send_rcv(channel, QUEUE, req.body, "lists_invite", res);
 });
 
+app.post("/users_search", (req, res) => {
+  // get all available users
+  q_send_rcv(channel, QUEUE, req.body, "users_search", res);
+});
+
 app.post("/lists_items", (req, res) => {
   // Add item to lists
   q_send_rcv(channel, QUEUE, req.body, "items_add", res);
