@@ -32,6 +32,7 @@ const AddList = ({ id, reload, close }) => {
         usr_id: id,
         list_name: list_name.current.value,
         list_description: list_desc.current.value,
+        token: localStorage.getItem("user_token"),
       },
     });
     await reload();

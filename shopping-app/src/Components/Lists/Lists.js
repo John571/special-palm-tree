@@ -21,7 +21,10 @@ const Lists = ({ id, setList }) => {
       url: "http://localhost:4000/lists_get",
       headers: { "Content-Type": "application/json" },
       method: "POST",
-      data: { usr_id: id },
+      data: {
+        usr_id: id,
+        token: localStorage.getItem("user_token"),
+      },
     });
     setLists(result.data.content);
     setIsLoading(false);
@@ -35,9 +38,10 @@ const Lists = ({ id, setList }) => {
       url: "http://localhost:4000/lists",
       headers: { "Content-Type": "application/json" },
       method: "DELETE",
-      data: { list_id: l_id },
+      data: { list_id: l_id, token: localStorage.getItem("user_token") },
     });
     await reload();
+    setList(0);
   };
   return (
     <>

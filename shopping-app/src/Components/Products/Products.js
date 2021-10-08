@@ -24,7 +24,7 @@ const Products = ({ l_id, u_id }) => {
         `setting items to ${JSON.stringify(result.data.content.list_items)}`
       );
       setItems(result.data.content.list_items);
-    }
+    } else if (result.data.content === null) setItems([]);
     setIsLoading(false);
   };
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -87,6 +87,7 @@ const Products = ({ l_id, u_id }) => {
           <button
             className="products_add_button"
             onClick={() => setaddItemModal(true)}
+            disabled={!l_id}
           >
             <span>Add Item</span>
           </button>
