@@ -20,9 +20,9 @@ const Products = ({ l_id, u_id, msg }) => {
       data: { list_id: list_id },
     });
     if (result.data.content && "list_items" in result.data.content) {
-      // console.log(
-      //   `setting items to ${JSON.stringify(result.data.content.list_items)}`
-      // );
+      console.log(
+        `setting items to ${JSON.stringify(result.data.content.list_items)}`
+      );
       setItems(result.data.content.list_items);
     } else if (result.data.content === null) setItems([]);
     setIsLoading(false);
@@ -84,6 +84,7 @@ const Products = ({ l_id, u_id, msg }) => {
                 data={i}
                 key={i._id._id}
                 reload={async () => await getLists(l_id)}
+                i_id={i._id._id}
                 l_id={l_id}
               />
             ))

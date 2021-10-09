@@ -13,7 +13,7 @@ const ListSchema = Schema({
       amount: { type: Schema.Types.Number, default: 1 },
       completed: { type: Schema.Types.Boolean, default: false },
       usr_img: {
-        _id: { type: Schema.Types.ObjectId },
+        _id: { type: Schema.Types.ObjectId, default: Schema.Types.ObjectId() },
         url: { type: Schema.Types.String, default: null },
       },
     },

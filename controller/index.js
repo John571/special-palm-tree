@@ -169,6 +169,11 @@ app.delete("/lists_items", (req, res) => {
   q_send_rcv(channel, QUEUE, req.body, "items_delete", res, io);
 });
 
+app.post("/lists_items_photo", (req, res) => {
+  // change item img in list
+  q_send_rcv(channel, QUEUE, req.body, "items_photo", res, io);
+});
+
 server.listen(4000, () =>
   console.log("[*]Shopping Controller is listening on port 4000")
 );

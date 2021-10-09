@@ -128,6 +128,7 @@ const Lists = ({ id, setList, l_id, msg }) => {
                 <List
                   data={l._id}
                   key={l._id._id}
+                  active={l._id._id === l_id}
                   setList={() => {
                     setList(l._id._id);
                     sessionStorage.setItem("list_id", l._id._id);

@@ -19,6 +19,11 @@ img {
   transition: 0.2s;
 }
 
+.list_active {
+  box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+}
+
 .list_container:hover {
   box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
@@ -50,9 +55,35 @@ img {
 .list_delete {
   height: 8vh;
   cursor: pointer;
+  font-size: medium;
+  font-weight: 500;
+  transition-timing-function: ease;
+  transition: 0.3s;
+  cursor: pointer;
+  border: 0px solid black;
+  border-radius: 10px;
+  box-shadow: 0 1rem 2rem hsl(0 0% 0% / 20%);
+}
+
+.list_delete:hover {
+  box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.3);
+  transition: 0.3s;
 }
 
 .list_invite {
   height: 8vh;
   cursor: pointer;
+  font-size: medium;
+  font-weight: 500;
+  transition-timing-function: ease;
+  transition: 0.3s;
+  cursor: pointer;
+  border: 0px solid black;
+  border-radius: 10px;
+  box-shadow: 0 1rem 2rem hsl(0 0% 0% / 20%);
+}
+
+.list_invite:hover {
+  box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.3);
+  transition: 0.3s;
 }

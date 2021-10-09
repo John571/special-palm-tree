@@ -44,14 +44,22 @@ const AddList = ({ id, reload, close }) => {
         <h2>Create List</h2>
         <hr />
       </div>
-      <div>
+      <div className="add_list_container_inputs">
         <p>
-          List Name:{" "}
-          <input type="text" onChange={check_inputs} ref={list_name} />
+          <input
+            type="text"
+            placeholder="List Name"
+            onChange={check_inputs}
+            ref={list_name}
+          />
         </p>
         <p>
-          List Description:{" "}
-          <input type="text" onChange={check_inputs} ref={list_desc} />
+          <input
+            type="text"
+            placeholder="List Description"
+            onChange={check_inputs}
+            ref={list_desc}
+          />
         </p>
       </div>
       <button

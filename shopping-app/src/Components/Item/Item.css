@@ -54,6 +54,7 @@
   border: 0px solid black;
   transition-timing-function: ease;
   transition: 0.2s;
+  box-shadow: 0 1rem 2rem hsl(0 0% 0% / 20%);
 }
 .item_x_button {
   height: 95%;
@@ -61,14 +62,16 @@
   border: 0px solid black;
   transition-timing-function: ease;
   transition: 0.2s;
+  box-shadow: 0 1rem 2rem hsl(0 0% 0% / 20%);
 }
 
 .item_delete_button {
   height: 95%;
   cursor: pointer;
-  border: 0px solid black;
+  border: 0px solid rgb(129, 127, 127);
   transition-timing-function: ease;
   transition: 0.2s;
+  box-shadow: 0 1rem 2rem hsl(0 0% 0% / 20%);
 }
 
 .item_delete_button:hover {
@@ -104,10 +107,54 @@
   grid-template-rows: 20% 60% 20%;
 }
 
+.item_amount > button {
+  border: 0px solid rgb(129, 127, 127);
+  cursor: pointer;
+  box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.3);
+}
+
+.item_amount > button:hover {
+  box-shadow: 0 1rem 2rem hsl(0 0% 0% / 20%);
+}
+
 .item_amount > span {
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
   font-size: large;
+}
+
+.modal_img_container {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal_img_container > button {
+  box-shadow: 0 1rem 2rem hsl(0 0% 0% / 20%);
+  cursor: pointer;
+  border: none;
+  width: 30%;
+  height: 30px;
+  transition: 0.2s ease-in-out;
+}
+
+.modal_img_container > input {
+  box-shadow: 0 1rem 2rem hsl(0 0% 0% / 20%);
+  cursor: pointer;
+  border: none;
+  width: 30%;
+  height: 30px;
+  transition: 0.2s ease-in-out;
+}
+
+.modal_img_container > button:hover {
+  box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.3);
+}
+
+.modal_img {
+  width: 30%;
+  height: 30%;
 }

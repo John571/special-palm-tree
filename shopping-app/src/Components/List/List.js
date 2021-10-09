@@ -1,9 +1,20 @@
 import React from "react";
 import list_avatar from "../../../src/list_avatar.png";
 import "./List_style.css";
-const List = ({ data, key, setList, delete_list, invite_open, info_open }) => {
+const List = ({
+  data,
+  key,
+  setList,
+  delete_list,
+  invite_open,
+  info_open,
+  active,
+}) => {
   return (
-    <div className="list_container" onClick={() => setList()}>
+    <div
+      className={`list_container${active ? " list_active" : ""}`}
+      onClick={() => setList()}
+    >
       <img src={list_avatar} alt="list_image" />
       <div className="list_details">
         <p className="list_name">{data.list_name}</p>
