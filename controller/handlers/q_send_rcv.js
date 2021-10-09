@@ -29,7 +29,9 @@ let q_send_rcv = async (channel, q_name, content, type, res, io = false) => {
       );
       channel.ack(data);
       channel.deleteQueue(q.queue);
-      if (
+      if (io && type === "lists_invite") {
+        io.emit("message", content.usr_id);
+      } else if (
         io !== false &&
         (content.list_id || content.usr_id) &&
         type !== "lists_get" &&

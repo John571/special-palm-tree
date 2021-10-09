@@ -7,7 +7,7 @@ import Invite from "./Invite";
 import ListInfo from "./ListInfo";
 import "./Lists.css";
 
-const Lists = ({ id, setList, l_id }) => {
+const Lists = ({ id, setList, l_id, msg }) => {
   const [lists, setLists] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [addListmodal, setaddListModal] = useState(false);
@@ -46,6 +46,11 @@ const Lists = ({ id, setList, l_id }) => {
   useEffect(async () => {
     reload();
   }, [id]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
+    if (msg === id) await reload();
+  }, [msg]);
 
   return (
     <>
@@ -123,15 +128,22 @@ const Lists = ({ id, setList, l_id }) => {
                 <List
                   data={l._id}
                   key={l._id._id}
-                  setList={() => setList(l._id._id)}
+                  setList={() => {
+                    setList(l._id._id);
+                    sessionStorage.setItem("list_id", l._id._id);
+                  }}
                   delete_list={() => delete_list(l._id._id)}
                   invite_open={() => {
                     setinviteModal(true);
                     setCurList(l._id._id);
+                    setList(l._id._id);
+                    sessionStorage.setItem("list_id", l._id._id);
                   }}
                   info_open={() => {
                     setInfoModal(true);
                     setCurList(l._id._id);
+                    setList(l._id._id);
+                    sessionStorage.setItem("list_id", l._id._id);
                   }}
                 />
               ) : (

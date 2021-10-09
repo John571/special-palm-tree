@@ -5,7 +5,7 @@ import AddProduct from "./AddProduct";
 import "./Products.css";
 import Item from "../Item/Item";
 
-const Products = ({ l_id, u_id }) => {
+const Products = ({ l_id, u_id, msg }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [items, setItems] = useState([]);
   const [addItemModal, setaddItemModal] = useState(false);
@@ -20,9 +20,9 @@ const Products = ({ l_id, u_id }) => {
       data: { list_id: list_id },
     });
     if (result.data.content && "list_items" in result.data.content) {
-      console.log(
-        `setting items to ${JSON.stringify(result.data.content.list_items)}`
-      );
+      // console.log(
+      //   `setting items to ${JSON.stringify(result.data.content.list_items)}`
+      // );
       setItems(result.data.content.list_items);
     } else if (result.data.content === null) setItems([]);
     setIsLoading(false);
@@ -31,6 +31,13 @@ const Products = ({ l_id, u_id }) => {
   useEffect(async () => {
     await getLists(l_id);
   }, [l_id]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
+    if (msg === (l_id || sessionStorage.getItem("list_id")))
+      await getLists(l_id);
+  }, [msg]);
+
   return (
     <>
       <ReactModal
@@ -86,7 +93,9 @@ const Products = ({ l_id, u_id }) => {
           {/* Replace button with icon */}
           <button
             className="products_add_button"
-            onClick={() => setaddItemModal(true)}
+            onClick={() => {
+              setaddItemModal(true);
+            }}
             disabled={!l_id}
           >
             <span>Add Item</span>

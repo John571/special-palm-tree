@@ -36,7 +36,7 @@ const Nav = ({ set_id, u_id, u_name, set_name }) => {
             onClick={() => {
               sessionStorage.setItem("user_token", -1);
               sessionStorage.setItem("user_id", -1);
-              sessionStorage.setItem("user_name", "");
+              sessionStorage.setItem("user_name", null);
               set_id(-1);
               set_name("");
               console.log("logout", sessionStorage.getItem("user_id"));
