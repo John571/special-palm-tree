@@ -4,13 +4,13 @@ import axios from "axios";
 import "./Item.css";
 import list_avatar from "../../../src/list_avatar.png";
 const Item = ({ data, reload, l_id, i_id }) => {
+  console.log(data.usr_img.url);
   const [completed1, setCompleted] = useState(data.completed);
   const [amount1, setAmount] = useState(data.amount);
   const [open, setOpen] = useState(false);
   const [isFilePicked, setIsFilePicked] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
   const [error, setError] = useState("");
-  console.log(data.amount);
   const update = async (status, amnt = amount1, b = false) => {
     // console.log("UPDATINGGGG");
     setCompleted(status);
@@ -86,7 +86,8 @@ const Item = ({ data, reload, l_id, i_id }) => {
     const formData = new FormData();
     formData.append("photo", selectedFile);
     formData.append("id", guid());
-
+    setError("Uploading...");
+    setIsFilePicked(false);
     const result = await axios({
       url: "http://imageservicecontainer.eastus.azurecontainer.io/Images/",
       headers: {
@@ -96,8 +97,28 @@ const Item = ({ data, reload, l_id, i_id }) => {
       method: "POST",
       data: formData,
     });
-    console.log(result);
-    return;
+    if (result.status !== 201) {
+      setError("Error uploading. Try again later.");
+      setIsFilePicked(false);
+      setSelectedFile(null);
+      return;
+    }
+    let photo = result.data.photo;
+
+    const result2 = await axios({
+      url: "http://localhost:4000/lists_items_photo",
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      data: {
+        list_id: l_id,
+        item_id: data._id._id,
+        photo_url: photo,
+      },
+    });
+    setError("");
+    setSelectedFile(null);
+    await reload();
+    setOpen(false);
   };
   return (
     <div className="item_container">
@@ -126,7 +147,7 @@ const Item = ({ data, reload, l_id, i_id }) => {
           </h2>
 
           <img
-            src={data._id.item_picture}
+            src={data.usr_img.url || data._id.item_picture}
             alt="list_image"
             className="modal_img"
           />
@@ -138,7 +159,7 @@ const Item = ({ data, reload, l_id, i_id }) => {
         </div>
       </ReactModal>
       <img
-        src={data._id.item_picture}
+        src={data.usr_img.url || data._id.item_picture}
         alt="item_image"
         onClick={() => setOpen(true)}
       />

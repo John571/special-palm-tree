@@ -263,6 +263,17 @@ connect().then(async () =>
           msg.type = "lists_info_done";
           msg.content = answer;
           break;
+        case "items_photo":
+          l_id = msg.content.list_id;
+          i_id = msg.content.item_id;
+          let url = msg.content.photo_url;
+          answer = await List.updateOne(
+            { _id: l_id, "list_items._id": i_id },
+            { $set: { "list_items.$.usr_img.url": url } }
+          );
+          msg.content = answer;
+          msg.type = "items_photo_done";
+          break;
       }
     console.log(
       `Processed message ${JSON.stringify(
