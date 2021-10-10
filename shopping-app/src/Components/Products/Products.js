@@ -14,7 +14,7 @@ const Products = ({ l_id, u_id, msg }) => {
     console.log("reloading");
     setIsLoading(true);
     const result = await axios({
-      url: "http://localhost:4000/lists_items_get",
+      url: "http://shoppingcontroller.eastus.azurecontainer.io:4000/lists_items_get",
       headers: { "Content-Type": "application/json" },
       method: "POST",
       data: { list_id: list_id },

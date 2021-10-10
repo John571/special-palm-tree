@@ -9,7 +9,7 @@ const AddProduct = ({ u_id, l_id, reload }) => {
   let s_ref = React.createRef();
   const get_items = async () => {
     const result = await axios({
-      url: "http://localhost:4000/lists_items_search",
+      url: "http://shoppingcontroller.eastus.azurecontainer.io:4000/lists_items_search",
       headers: { "Content-Type": "application/json" },
       method: "POST",
       data: {
@@ -26,7 +26,7 @@ const AddProduct = ({ u_id, l_id, reload }) => {
 
   const add_item_to_list = async (i_id, i_name) => {
     const result = await axios({
-      url: "http://localhost:4000/lists_items",
+      url: "http://shoppingcontroller.eastus.azurecontainer.io:4000/lists_items",
       headers: { "Content-Type": "application/json" },
       method: "POST",
       data: {

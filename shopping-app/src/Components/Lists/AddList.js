@@ -25,7 +25,7 @@ const AddList = ({ id, reload, close }) => {
       return;
     }
     const result = await axios({
-      url: "http://localhost:4000/lists",
+      url: "http://shoppingcontroller.eastus.azurecontainer.io:4000/lists",
       headers: { "Content-Type": "application/json" },
       method: "POST",
       data: {

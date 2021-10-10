@@ -18,14 +18,6 @@ let channel = null;
 let connection = null;
 const QUEUE = "shopping";
 
-mongoose
-  .connect(process.env.MONGO_ATLAS_DB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("Connected to Mongo... :)"))
-  .catch((err) => console.log(err));
-
 let connect = async () => {
   try {
     connection = await amqp.connect(process.env.RABBIT_LOCAL_CON_STR);
@@ -39,6 +31,15 @@ let connect = async () => {
 };
 
 await connect();
+
+mongoose
+  .connect(process.env.MONGO_ATLAS_DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connected to Mongo... :)"))
+  .catch((err) => console.log(err));
+
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {

@@ -19,7 +19,7 @@ const Lists = ({ id, setList, l_id, msg }) => {
     console.log("reloading");
     setIsLoading(true);
     const result = await axios({
-      url: "http://localhost:4000/lists_get",
+      url: "http://shoppingcontroller.eastus.azurecontainer.io:4000/lists_get",
       headers: { "Content-Type": "application/json" },
       method: "POST",
       data: {
@@ -33,7 +33,7 @@ const Lists = ({ id, setList, l_id, msg }) => {
 
   const delete_list = async (l_id) => {
     const result = await axios({
-      url: "http://localhost:4000/lists",
+      url: "http://shoppingcontroller.eastus.azurecontainer.io:4000/lists",
       headers: { "Content-Type": "application/json" },
       method: "DELETE",
       data: { list_id: l_id, token: sessionStorage.getItem("user_token") },

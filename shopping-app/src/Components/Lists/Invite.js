@@ -9,7 +9,7 @@ const Invite = ({ id, reload, close }) => {
   let s_ref = React.createRef();
   const get_users = async () => {
     const result = await axios({
-      url: "http://localhost:4000/users_search",
+      url: "http://shoppingcontroller.eastus.azurecontainer.io:4000/users_search",
       headers: { "Content-Type": "application/json" },
       method: "POST",
       data: {
@@ -27,7 +27,7 @@ const Invite = ({ id, reload, close }) => {
 
   const add_user_to_list = async (u_id, i_name) => {
     const result = await axios({
-      url: "http://localhost:4000/lists_invite",
+      url: "http://shoppingcontroller.eastus.azurecontainer.io:4000/lists_invite",
       headers: { "Content-Type": "application/json" },
       method: "POST",
       data: {

@@ -16,7 +16,7 @@ const Login = ({ set_id, set_name }) => {
   const submit = async (e) => {
     e.preventDefault();
     const result = await axios({
-      url: "http://localhost:4000/login",
+      url: "http://shoppingcontroller.eastus.azurecontainer.io:4000/login",
       headers: { "Content-Type": "application/json" },
       method: "POST",
       data: {

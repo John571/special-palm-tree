@@ -20,7 +20,7 @@ const Register = (props) => {
   const submit = async (e) => {
     e.preventDefault();
     const result = await axios({
-      url: "http://localhost:4000/register",
+      url: "http://shoppingcontroller.eastus.azurecontainer.io:4000/register",
       headers: { "Content-Type": "application/json" },
       method: "POST",
       data: {

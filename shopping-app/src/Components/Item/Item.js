@@ -18,7 +18,7 @@ const Item = ({ data, reload, l_id, i_id }) => {
     //   `sending update to list ${l_id} to item ${data._id._id} with ${status}`
     // );
     const result = await axios({
-      url: "http://localhost:4000/lists_items",
+      url: "http://shoppingcontroller.eastus.azurecontainer.io:4000/lists_items",
       headers: { "Content-Type": "application/json" },
       method: "PUT",
       data: {
@@ -34,7 +34,7 @@ const Item = ({ data, reload, l_id, i_id }) => {
   };
   const delete_list = async () => {
     const result = await axios({
-      url: "http://localhost:4000/lists_items",
+      url: "http://shoppingcontroller.eastus.azurecontainer.io:4000/lists_items",
       headers: { "Content-Type": "application/json" },
       method: "DELETE",
       data: {
@@ -106,7 +106,7 @@ const Item = ({ data, reload, l_id, i_id }) => {
     let photo = result.data.photo;
 
     const result2 = await axios({
-      url: "http://localhost:4000/lists_items_photo",
+      url: "http://shoppingcontroller.eastus.azurecontainer.io:4000/lists_items_photo",
       headers: { "Content-Type": "application/json" },
       method: "POST",
       data: {

@@ -7,7 +7,7 @@ import Login from "./Components/Register/Login";
 import Nav from "./Components/Nav/Nav";
 import Home from "./acon";
 import React from "react";
-const SOC_END = "http://127.0.0.1:4000";
+const SOC_END = "http://shoppingcontroller.eastus.azurecontainer.io:4000";
 const socket = io(SOC_END);
 function App() {
   const [message, setMessage] = useState(null);

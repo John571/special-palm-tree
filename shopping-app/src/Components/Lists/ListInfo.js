@@ -5,7 +5,7 @@ const ListInfo = ({ id }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     const result = await axios({
-      url: "http://localhost:4000/lists_info",
+      url: "http://shoppingcontroller.eastus.azurecontainer.io:4000/lists_info",
       headers: { "Content-Type": "application/json" },
       method: "POST",
       data: { list_id: id },
