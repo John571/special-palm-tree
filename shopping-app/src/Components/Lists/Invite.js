@@ -6,6 +6,7 @@ const Invite = ({ id, reload, close }) => {
   const [search, setSearch] = useState("");
   const [users, setUsers] = useState([]);
   const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(true);
   let s_ref = React.createRef();
   const get_users = async () => {
     const result = await axios({
@@ -22,6 +23,7 @@ const Invite = ({ id, reload, close }) => {
   };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
+    search === "" ? setLoading(false) : setLoading(true);
     await get_users();
   }, [search]);
 
@@ -57,13 +59,21 @@ const Invite = ({ id, reload, close }) => {
         onInput={() => setSearch(s_ref.current.value)}
       />
       <div className="users_container">
-        {users.map((i) => (
-          <UserItem
-            item_data={i}
-            key={i._id}
-            addUser={async () => add_user_to_list(i._id, i.user_name)}
-          />
-        ))}
+        {users.length === 0 ? (
+          <>
+            <h2></h2>
+            <h2>{loading ? "Searching for users..." : "Type user name"}</h2>
+            <h2></h2>
+          </>
+        ) : (
+          users.map((i) => (
+            <UserItem
+              item_data={i}
+              key={i._id}
+              addUser={async () => add_user_to_list(i._id, i.user_name)}
+            />
+          ))
+        )}
       </div>
     </div>
   );

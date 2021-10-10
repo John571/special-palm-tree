@@ -56,7 +56,6 @@ const Login = ({ set_id, set_name }) => {
         >
           <h2>Login</h2>
           <form className="login_form" onSubmit={submit}>
-            <span>Email:</span>
             <input
               placeholder="email"
               required={true}
@@ -64,7 +63,6 @@ const Login = ({ set_id, set_name }) => {
               value={email}
             />
 
-            <span>Password:</span>
             <input
               placeholder="password"
               required={true}

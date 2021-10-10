@@ -6,6 +6,7 @@ const AddProduct = ({ u_id, l_id, reload }) => {
   const [search, setSearch] = useState("");
   const [items, setItems] = useState([]);
   const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
   let s_ref = React.createRef();
   const get_items = async () => {
     const result = await axios({
@@ -21,6 +22,7 @@ const AddProduct = ({ u_id, l_id, reload }) => {
   };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
+    search === "" ? setLoading(false) : setLoading(true);
     await get_items();
   }, [search]);
 
@@ -56,13 +58,21 @@ const AddProduct = ({ u_id, l_id, reload }) => {
         onInput={() => setSearch(s_ref.current.value)}
       />
       <div className="items_container">
-        {items.map((i) => (
-          <ListItem
-            item_data={i}
-            key={i._id}
-            addItem={async () => add_item_to_list(i._id, i.item_name)}
-          />
-        ))}
+        {items.length === 0 ? (
+          <>
+            <h2></h2>
+            <h2>{loading ? "Searching for items..." : "Type item name"}</h2>
+            <h2></h2>
+          </>
+        ) : (
+          items.map((i) => (
+            <ListItem
+              item_data={i}
+              key={i._id}
+              addItem={async () => add_item_to_list(i._id, i.item_name)}
+            />
+          ))
+        )}
       </div>
     </div>
   );

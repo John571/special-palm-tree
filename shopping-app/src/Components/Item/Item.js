@@ -4,7 +4,6 @@ import axios from "axios";
 import "./Item.css";
 import list_avatar from "../../../src/list_avatar.png";
 const Item = ({ data, reload, l_id, i_id }) => {
-  console.log(data.usr_img.url);
   const [completed1, setCompleted] = useState(data.completed);
   const [amount1, setAmount] = useState(data.amount);
   const [open, setOpen] = useState(false);

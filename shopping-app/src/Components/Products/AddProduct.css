@@ -11,9 +11,10 @@
 }
 
 .items_container {
-  margin-top: 10px;
+  margin-top: 15px;
   display: grid;
-  grid-template-columns: 20fr 20fr 20fr;
+  width: 95%;
+  grid-template-columns: 15fr 15fr 15fr;
   grid-auto-flow: row;
   grid-gap: 5px;
 }

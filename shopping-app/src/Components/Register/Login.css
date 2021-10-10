@@ -1,20 +1,27 @@
 .login_form {
   display: grid;
-  grid-template-rows: repeat(3, 3vh);
+  grid-template-rows: repeat(3, 6vh);
   align-items: center;
   justify-items: center;
 }
-input {
-  margin-top: 5px;
+.login_form > input {
+  margin-top: 15px;
   margin-bottom: 5px;
   margin-left: 20px;
   width: 80%;
   height: 3vh;
   font-size: large;
+  border-radius: 8px;
+  border: 2px solid #dddfe2;
+  outline: none;
+  color: #1d2129;
+  margin: 0.5rem 0;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
 }
 
 .submit {
-  margin-top: 15px;
+  margin-top: 20px;
   width: 20%;
   height: 3vh;
   cursor: pointer;

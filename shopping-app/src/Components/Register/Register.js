@@ -59,7 +59,6 @@ const Register = (props) => {
         >
           <h2>Register</h2>
           <form className="reg_form" onSubmit={submit}>
-            <span>Email:</span>
             <input
               placeholder="email"
               required={true}
@@ -67,7 +66,6 @@ const Register = (props) => {
               value={email}
             />
 
-            <span>Password:</span>
             <input
               placeholder="password"
               required={true}
@@ -76,7 +74,6 @@ const Register = (props) => {
               value={pass}
             />
 
-            <span>User Name:</span>
             <input
               placeholder="user name"
               required={true}
@@ -84,7 +81,6 @@ const Register = (props) => {
               value={name}
             />
 
-            <span>User Country: </span>
             <input
               placeholder="user country"
               required={true}
@@ -92,7 +88,6 @@ const Register = (props) => {
               value={country}
             />
 
-            <span>User City:</span>
             <input
               placeholder="user city"
               required={true}
@@ -100,7 +95,6 @@ const Register = (props) => {
               value={city}
             />
 
-            <span>User Bio:</span>
             <input
               placeholder="user bio"
               required={true}

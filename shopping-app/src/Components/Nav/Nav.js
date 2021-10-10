@@ -8,28 +8,28 @@ const Nav = ({ set_id, u_id, u_name, set_name }) => {
       <li>
         <a href="/">Home</a>
       </li>
-      {u_id == -1 ? (
+      {u_name === "null" || u_name === "" ? (
         <li>
           <a href="/login">Login</a>
         </li>
       ) : (
         ""
       )}
-      {u_id == -1 ? (
+      {u_name === "null" || u_name === "" ? (
         <li>
           <a href="/register">Register</a>
         </li>
       ) : (
         ""
       )}
-      {u_name ? (
+      {u_name !== "null" && u_name !== "" ? (
         <li className="name">
           <a href="#">Hello {u_name}</a>
         </li>
       ) : (
         ""
       )}
-      {u_id != -1 ? (
+      {u_name !== "null" && u_name !== "" ? (
         <li className="logout">
           <a
             href="#"
