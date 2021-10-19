@@ -8,37 +8,37 @@ const Nav = ({ set_id, u_id, u_name, set_name }) => {
       <li>
         <a href="/">Home</a>
       </li>
-      {u_name === "null" || u_name === "" ? (
+      {u_id === null ? (
         <li>
           <a href="/login">Login</a>
         </li>
       ) : (
         ""
       )}
-      {u_name === "null" || u_name === "" ? (
+      {u_name === null || u_name === null ? (
         <li>
           <a href="/register">Register</a>
         </li>
       ) : (
         ""
       )}
-      {u_name !== "null" && u_name !== "" ? (
+      {u_name !== null && u_name !== "" && u_id !== -1 ? (
         <li className="name">
           <a href="#">Hello {u_name}</a>
         </li>
       ) : (
         ""
       )}
-      {u_name !== "null" && u_name !== "" ? (
+      {u_name !== null && u_name !== "" ? (
         <li className="logout">
           <a
             href="#"
             onClick={() => {
-              sessionStorage.setItem("user_token", -1);
-              sessionStorage.setItem("user_id", -1);
-              sessionStorage.setItem("user_name", null);
-              set_id(-1);
-              set_name("");
+              sessionStorage.removeItem("user_token");
+              sessionStorage.removeItem("user_id");
+              sessionStorage.removeItem("user_name");
+              set_id(null);
+              set_name(null);
               console.log("logout", sessionStorage.getItem("user_id"));
             }}
           >

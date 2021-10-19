@@ -11,11 +11,9 @@ const SOC_END = "http://shoppingcontroller.eastus.azurecontainer.io:4000";
 const socket = io(SOC_END);
 function App() {
   const [message, setMessage] = useState(null);
-  const [l_id, setl_id] = useState(sessionStorage.getItem("list_id") || null);
-  const [u_id, setu_id] = useState(sessionStorage.getItem("user_id") || -1);
-  const [u_name, setU_name] = useState(
-    sessionStorage.getItem("user_name") || null
-  );
+  const [l_id, setl_id] = useState(sessionStorage.getItem("list_id"));
+  const [u_id, setu_id] = useState(sessionStorage.getItem("user_id"));
+  const [u_name, setU_name] = useState(sessionStorage.getItem("user_name"));
 
   useEffect(() => {
     socket.on("message", (msg) => {
@@ -46,7 +44,13 @@ function App() {
             exact
             path="/"
             render={() => (
-              <Home u_id={u_id} setl_id={setl_id} l_id={l_id} msg={message} />
+              <Home
+                u_id={u_id}
+                setl_id={setl_id}
+                l_id={l_id}
+                msg={message}
+                u_name={u_name}
+              />
             )}
           />
           <Route
