@@ -1,9 +1,9 @@
 img {
   position: relative;
-  top: 15%;
+  top: 10%;
   float: left;
   border-radius: 50%;
-  height: 50px;
+  height: 5vh;
   margin-left: 1px;
 }
 
@@ -13,8 +13,9 @@ img {
   cursor: pointer;
   border: solid gray 1px;
   padding: 5px;
-  margin: 2px;
+  margin: 1px;
   height: 8vh;
+  min-height: 50px;
   transition-timing-function: ease;
   transition: 0.2s;
 }
@@ -35,8 +36,14 @@ img {
   font-size: large;
   margin-bottom: 0px;
   margin-left: 10px;
+  vertical-align: middle;
 }
-
+@media screen and (max-height: 1024px) {
+  .list_name {
+    margin-top: 5px;
+    font-size: small;
+  }
+}
 .created_by {
   flex: 1;
   margin-top: 0px;
@@ -48,7 +55,7 @@ img {
 .list_details {
   display: flex;
   flex-flow: column wrap;
-  margin: 0 10% 50px 10%;
+  margin: 0 0% 10px 10%;
   align-content: flex-start;
 }
 
@@ -71,7 +78,7 @@ img {
 }
 
 .list_invite {
-  height: 8vh;
+  max-height: 8vh;
   cursor: pointer;
   font-size: medium;
   font-weight: 500;

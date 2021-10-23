@@ -19,6 +19,7 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(auto-fill, 10vh);
+  grid-row-gap: 2px;
   overflow: auto;
   overflow-x: hidden;
   -ms-overflow-style: none; /* Internet Explorer 10+ */
