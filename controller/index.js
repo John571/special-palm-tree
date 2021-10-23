@@ -175,6 +175,11 @@ app.post("/lists_items_photo", (req, res) => {
   q_send_rcv(channel, QUEUE, req.body, "items_photo", res, io);
 });
 
+app.post("/lists_chat", (req, res) => {
+  io.emit("chat", req.body.l_id);
+  res.status(200).json("ok");
+});
+
 server.listen(4000, () =>
   console.log("[*]Shopping Controller is listening on port 4000")
 );

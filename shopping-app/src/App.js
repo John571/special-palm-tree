@@ -11,6 +11,7 @@ const SOC_END = "http://shoppingcontroller.eastus.azurecontainer.io:4000";
 const socket = io(SOC_END);
 function App() {
   const [message, setMessage] = useState(null);
+  const [chat, setChat] = useState(null);
   const [l_id, setl_id] = useState(sessionStorage.getItem("list_id"));
   const [u_id, setu_id] = useState(sessionStorage.getItem("user_id"));
   const [u_name, setU_name] = useState(sessionStorage.getItem("user_name"));
@@ -26,6 +27,12 @@ function App() {
         console.log("SETTING MESSAGE!!!");
         setMessage(null);
         setMessage(msg);
+      }
+    });
+    socket.on("chat", (msg) => {
+      if (msg === l_id || msg === sessionStorage.getItem("list_id")) {
+        setChat(null);
+        setChat(msg);
       }
     });
   }, []);
@@ -50,6 +57,7 @@ function App() {
                 l_id={l_id}
                 msg={message}
                 u_name={u_name}
+                chat={chat}
               />
             )}
           />

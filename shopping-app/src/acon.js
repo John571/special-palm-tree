@@ -2,7 +2,7 @@ import React from "react";
 import Lists from "./Components/Lists/Lists";
 import Products from "./Components/Products/Products";
 import "./acon.css";
-const Home = ({ u_id, setl_id, l_id, msg, u_name }) => {
+const Home = ({ u_id, setl_id, l_id, msg, u_name, chat }) => {
   if (u_id === null || sessionStorage.getItem("user_id") === null) {
     console.log(sessionStorage.getItem("user_id"), u_id, u_name);
     return (
@@ -26,7 +26,7 @@ const Home = ({ u_id, setl_id, l_id, msg, u_name }) => {
     return (
       <>
         <Lists id={u_id} setList={setl_id} l_id={l_id} msg={msg} />
-        <Products l_id={l_id} u_id={u_id} msg={msg} />
+        <Products l_id={l_id} u_id={u_id} msg={msg} chatMsg={chat} />
       </>
     );
   }

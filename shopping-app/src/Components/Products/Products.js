@@ -5,10 +5,14 @@ import AddProduct from "./AddProduct";
 import "./Products.css";
 import Item from "../Item/Item";
 
-const Products = ({ l_id, u_id, msg }) => {
+const Products = ({ l_id, u_id, msg, chatMsg }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isChatLoading, setIsChatLoading] = useState(false);
   const [items, setItems] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState("");
   const [addItemModal, setaddItemModal] = useState(false);
+  const [chat, setChat] = useState(false);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getLists = async (list_id) => {
     console.log("reloading");
@@ -27,6 +31,56 @@ const Products = ({ l_id, u_id, msg }) => {
     } else if (result.data.content === null) setItems([]);
     setIsLoading(false);
   };
+
+  const getMessages = async (list_id) => {
+    setIsChatLoading(true);
+    try {
+      const result = await axios({
+        url: `http://messagescontainer.uaenorth.azurecontainer.io/api/Chat/${list_id}`,
+        method: "GET",
+      });
+      if (result && result.data) {
+        console.log(`setting messages to ${JSON.stringify(result.data.msg)}`);
+        setMessages(result.data.message);
+      } else {
+        console.log("ERROR");
+        setMessages([]);
+      }
+    } catch (err) {
+      console.log(err);
+      setMessages([]);
+    }
+    setIsChatLoading(false);
+  };
+
+  const sendMsg = async (e) => {
+    const result = await axios({
+      url: `http://messagescontainer.uaenorth.azurecontainer.io/api/Chat`,
+      method: "POST",
+      data: {
+        id: l_id,
+        msg: [
+          {
+            userName: localStorage.getItem("user_name"),
+            msg: message,
+          },
+        ],
+      },
+    });
+
+    const result2 = await axios({
+      url: `http://shoppingcontroller.eastus.azurecontainer.io:4000/lists_chat`,
+      method: "POST",
+      data: {
+        l_id: l_id,
+      },
+    });
+
+    setMessage("");
+
+    await getMessages(l_id);
+  };
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     await getLists(l_id);
@@ -34,8 +88,21 @@ const Products = ({ l_id, u_id, msg }) => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
+    if (chat === false) return;
+    await getMessages(l_id);
+  }, [chat]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
+    if (chat === false) return;
+    await getMessages(l_id);
+  }, [chatMsg]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
     if (msg === (l_id || sessionStorage.getItem("list_id")))
-      await getLists(l_id);
+      await getMessages(l_id);
+    await getLists(l_id);
   }, [msg]);
 
   return (
@@ -66,40 +133,64 @@ const Products = ({ l_id, u_id, msg }) => {
       </ReactModal>
       <div className="products_container">
         <div className="products_list_chat">
-          <div className="products_list">
+          <div
+            className={`products_list ${!chat ? "active" : ""}`}
+            onClick={() => setChat(false)}
+          >
             <h2>Item List</h2>
           </div>
-          <div className="products_chat">
+          <div
+            className={`products_chat ${chat ? "active" : ""}`}
+            onClick={() => setChat(true)}
+          >
             <h2>List Chat</h2>
           </div>
         </div>
-        <div className="products_items_list">
-          {isLoading ? (
-            <div>Loading items...</div>
-          ) : items.length === 0 ? (
-            "No items here yet"
-          ) : (
-            items.map((i) => (
-              <Item
-                data={i}
-                key={i._id._id}
-                reload={async () => await getLists(l_id)}
-                i_id={i._id._id}
-                l_id={l_id}
+        {!chat ? (
+          <div className="products_items_list">
+            {isLoading ? (
+              <div>Loading items...</div>
+            ) : items.length === 0 ? (
+              "No items here yet"
+            ) : (
+              items.map((i) => (
+                <Item
+                  data={i}
+                  key={i._id._id}
+                  reload={async () => await getLists(l_id)}
+                  i_id={i._id._id}
+                  l_id={l_id}
+                />
+              ))
+            )}
+          </div>
+        ) : (
+          <div className="products_items_chat">
+            <div>{isChatLoading ? "Loading Messages" : "Chat"}</div>
+            <div>
+              <input
+                type="text"
+                placeholder="Type Your Message"
+                value={message}
+                onChange={(e) => setMessage(e.currentTarget.value)}
               />
-            ))
-          )}
-        </div>
+            </div>
+          </div>
+        )}
         <div className="products_add_product">
           {/* Replace button with icon */}
           <button
             className="products_add_button"
-            onClick={() => {
-              setaddItemModal(true);
-            }}
-            disabled={!l_id}
+            onClick={
+              !chat
+                ? () => {
+                    setaddItemModal(true);
+                  }
+                : (e) => sendMsg(e)
+            }
+            disabled={!l_id || (chat && message === "") || isChatLoading}
           >
-            <span>Add Item</span>
+            <span>{!chat ? `Add Item` : `Send Message`}</span>
           </button>
         </div>
       </div>

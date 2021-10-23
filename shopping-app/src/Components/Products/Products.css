@@ -23,6 +23,9 @@
   border-top-left-radius: 5px;
   text-align: center;
   border-right: 1px solid black;
+}
+
+.active {
   box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
 }
 
@@ -56,6 +59,15 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(auto-fill, 10vh);
+  overflow: auto;
+  overflow-x: hidden;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.products_items_chat {
+  display: grid;
+  grid-template-rows: 57vh 5vh;
   overflow: auto;
   overflow-x: hidden;
   -ms-overflow-style: none; /* Internet Explorer 10+ */
