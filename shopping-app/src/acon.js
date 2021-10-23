@@ -26,7 +26,13 @@ const Home = ({ u_id, setl_id, l_id, msg, u_name, chat }) => {
     return (
       <>
         <Lists id={u_id} setList={setl_id} l_id={l_id} msg={msg} />
-        <Products l_id={l_id} u_id={u_id} msg={msg} chatMsg={chat} />
+        <Products
+          l_id={l_id}
+          u_id={u_id}
+          u_name={u_name}
+          msg={msg}
+          chatMsg={chat}
+        />
       </>
     );
   }

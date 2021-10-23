@@ -94,7 +94,7 @@ app.post("/login", async (req, res) => {
     const { email, password } = req.body;
     if (!(email && password)) res.status(400).send("All input is required");
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: email });
     if (user && (await bcrypt.compare(password, user.password))) {
       const token = jsonwebtoken.sign(
         { user_id: user._id, user_name: user.user_name },

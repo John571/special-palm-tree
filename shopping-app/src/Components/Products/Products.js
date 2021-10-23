@@ -5,7 +5,7 @@ import AddProduct from "./AddProduct";
 import "./Products.css";
 import Item from "../Item/Item";
 
-const Products = ({ l_id, u_id, msg, chatMsg }) => {
+const Products = ({ l_id, u_id, u_name, msg, chatMsg }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isChatLoading, setIsChatLoading] = useState(false);
   const [items, setItems] = useState([]);
@@ -41,7 +41,7 @@ const Products = ({ l_id, u_id, msg, chatMsg }) => {
       });
       if (result && result.data) {
         console.log(`setting messages to ${JSON.stringify(result.data.msg)}`);
-        setMessages(result.data.message);
+        setMessages(result.data.msg);
       } else {
         console.log("ERROR");
         setMessages([]);
@@ -51,6 +51,9 @@ const Products = ({ l_id, u_id, msg, chatMsg }) => {
       setMessages([]);
     }
     setIsChatLoading(false);
+    console.log(messages);
+    let d = document.getElementsByClassName("chat_messages")[0];
+    d.scrollTop = d.scrollHeight;
   };
 
   const sendMsg = async (e) => {
@@ -61,7 +64,7 @@ const Products = ({ l_id, u_id, msg, chatMsg }) => {
         id: l_id,
         msg: [
           {
-            userName: localStorage.getItem("user_name"),
+            userName: u_name,
             msg: message,
           },
         ],
@@ -166,7 +169,25 @@ const Products = ({ l_id, u_id, msg, chatMsg }) => {
           </div>
         ) : (
           <div className="products_items_chat">
-            <div>{isChatLoading ? "Loading Messages" : "Chat"}</div>
+            <div className="chat_messages">
+              {isChatLoading
+                ? "Loading Messages"
+                : messages
+                ? messages.map((m) => (
+                    <div
+                      className={`message ${
+                        m.userName !== u_name ? "right" : ""
+                      }`}
+                    >
+                      <span>
+                        <b>{m.userName}</b>
+                      </span>
+                      <span>{m.msg}</span>
+                      <span>{m.date}</span>
+                    </div>
+                  ))
+                : "No Messages yet"}
+            </div>
             <div>
               <input
                 type="text"

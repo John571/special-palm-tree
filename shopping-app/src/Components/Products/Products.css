@@ -65,6 +65,15 @@
   scrollbar-width: none; /* Firefox */
 }
 
+.chat_messages {
+  display: grid;
+  grid-template-rows: repeat(auto-fill, 15vh);
+  overflow: auto;
+  overflow-x: hidden;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
 .products_items_chat {
   display: grid;
   grid-template-rows: 57vh 5vh;
@@ -72,4 +81,17 @@
   overflow-x: hidden;
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none; /* Firefox */
+}
+
+.message {
+  border: 1px solid black;
+  padding: 5px;
+  margin: 5px;
+  max-width: 75%;
+  min-width: 50%;
+  display: grid;
+}
+
+.right {
+  justify-self: end;
 }
