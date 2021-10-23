@@ -53,7 +53,7 @@ const Products = ({ l_id, u_id, u_name, msg, chatMsg }) => {
     setIsChatLoading(false);
     console.log(messages);
     let d = document.getElementsByClassName("chat_messages")[0];
-    d.scrollTop = d.scrollHeight;
+    if (d) d.scrollTop = d.scrollHeight;
   };
 
   const sendMsg = async (e) => {
