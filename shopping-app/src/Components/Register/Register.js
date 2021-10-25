@@ -10,7 +10,7 @@ const Register = (props) => {
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const [bio, setBio] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [login, setLogin] = useState(false);
 
@@ -18,6 +18,7 @@ const Register = (props) => {
     setOpen(true);
   };
   const submit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const result = await axios({
       url: "http://shoppingcontroller.eastus.azurecontainer.io:4000/register",
@@ -34,6 +35,7 @@ const Register = (props) => {
     });
     console.log(result.data);
     setLogin(true);
+    setLoading(false);
   };
   if (login) return <Redirect to="/login" />;
   return (
@@ -101,8 +103,8 @@ const Register = (props) => {
               onChange={(e) => setBio(e.target.value)}
               value={bio}
             />
-            <button type="submit" className="submit">
-              Register
+            <button type="submit" className="submit" disabled={loading}>
+              {`${loading ? "Signing up" : "Register"}`}
             </button>
           </form>
         </ReactModal>

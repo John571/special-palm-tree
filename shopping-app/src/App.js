@@ -43,7 +43,13 @@ function App() {
 
   return (
     <>
-      <Nav set_id={setu_id} u_id={u_id} u_name={u_name} set_name={setU_name} />
+      <Nav
+        set_id={setu_id}
+        setl_id={setl_id}
+        u_id={u_id}
+        u_name={u_name}
+        set_name={setU_name}
+      />
 
       <div className="App">
         <BrowserRouter>

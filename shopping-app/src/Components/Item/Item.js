@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import ReactModal from "react-modal";
 import axios from "axios";
+import send_to_chat from "../../helpers/chat";
 import "./Item.css";
 import list_avatar from "../../../src/list_avatar.png";
-const Item = ({ data, reload, l_id, i_id }) => {
+const Item = ({ data, reload, l_id, i_id, u_name }) => {
   const [completed1, setCompleted] = useState(data.completed);
   const [amount1, setAmount] = useState(data.amount);
   const [open, setOpen] = useState(false);
   const [isFilePicked, setIsFilePicked] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
   const [error, setError] = useState("");
-  const update = async (status, amnt = amount1, b = false) => {
+
+  const update = async (status, amnt = amount1, b = false, i_name) => {
     // console.log("UPDATINGGGG");
     setCompleted(status);
     // console.log(
@@ -29,9 +31,10 @@ const Item = ({ data, reload, l_id, i_id }) => {
         },
       },
     });
+    send_to_chat(l_id, "System", `${u_name} updated ${data._id.item_name}`);
     await reload();
   };
-  const delete_list = async () => {
+  const delete_list = async (i_name) => {
     const result = await axios({
       url: "http://shoppingcontroller.eastus.azurecontainer.io:4000/lists_items",
       headers: { "Content-Type": "application/json" },
@@ -41,6 +44,7 @@ const Item = ({ data, reload, l_id, i_id }) => {
         item_id: data._id._id,
       },
     });
+    send_to_chat(l_id, "System", `${u_name} deleted ${i_name}`);
     await reload();
   };
   const amount_handler = async (sign) => {
@@ -52,6 +56,11 @@ const Item = ({ data, reload, l_id, i_id }) => {
       setAmount(cur <= 0 ? 0 : cur - 1);
       await update(completed1, cur - 1, true);
     }
+    send_to_chat(
+      l_id,
+      "System",
+      `${u_name} changed ${data._id.item_name}'s amount`
+    );
   };
   const changeHandler = (e) => {
     if (
@@ -180,20 +189,32 @@ const Item = ({ data, reload, l_id, i_id }) => {
         className={`item_v_button ${completed1 && "marked green"}`}
         onClick={() => {
           update(true);
+          send_to_chat(
+            l_id,
+            "System",
+            `${u_name} marked ${data._id.item_name} green`
+          );
         }}
       >
         V
       </button>
       <button
         className={`item_x_button ${!completed1 && "marked red"}`}
-        onClick={() => update(false)}
+        onClick={() => {
+          update(false);
+          send_to_chat(
+            l_id,
+            "System",
+            `${u_name} marked ${data._id.item_name} red`
+          );
+        }}
       >
         X
       </button>
       <button
         className={`item_delete_button`}
         onClick={() => {
-          delete_list(true);
+          delete_list(data._id.item_name);
         }}
       >
         Delete

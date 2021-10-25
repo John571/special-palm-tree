@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ListItem from "./ListItem";
+import send_to_chat from "../../helpers/chat";
 import "./AddProduct.css";
-const AddProduct = ({ u_id, l_id, reload }) => {
+const AddProduct = ({ u_id, l_id, reload, u_name }) => {
   const [search, setSearch] = useState("");
   const [items, setItems] = useState([]);
   const [status, setStatus] = useState("");
@@ -41,6 +42,11 @@ const AddProduct = ({ u_id, l_id, reload }) => {
       setStatus(`${i_name} is already in list`);
     else {
       setStatus(`${i_name} added to list`);
+      send_to_chat(
+        l_id,
+        "System",
+        `${localStorage.getItem("user_name")} added ${i_name}`
+      );
       await reload();
     }
   };

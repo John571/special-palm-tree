@@ -51,12 +51,12 @@ const Products = ({ l_id, u_id, u_name, msg, chatMsg }) => {
       setMessages([]);
     }
     setIsChatLoading(false);
-    console.log(messages);
     let d = document.getElementsByClassName("chat_messages")[0];
     if (d) d.scrollTop = d.scrollHeight;
   };
 
   const sendMsg = async (e) => {
+    setIsChatLoading(true);
     const result = await axios({
       url: `http://messagescontainer.uaenorth.azurecontainer.io/api/Chat`,
       method: "POST",
@@ -82,10 +82,12 @@ const Products = ({ l_id, u_id, u_name, msg, chatMsg }) => {
     setMessage("");
 
     await getMessages(l_id);
+    setIsChatLoading(false);
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
+    setChat(false);
     await getLists(l_id);
   }, [l_id]);
 
@@ -132,6 +134,7 @@ const Products = ({ l_id, u_id, u_name, msg, chatMsg }) => {
           l_id={l_id}
           u_id={u_id}
           reload={async () => await getLists(l_id)}
+          u_name={u_name}
         />
       </ReactModal>
       <div className="products_container">
@@ -152,7 +155,9 @@ const Products = ({ l_id, u_id, u_name, msg, chatMsg }) => {
         {!chat ? (
           <div className="products_items_list">
             {isLoading ? (
-              <div>Loading items...</div>
+              <div className="loading">
+                <h2>Loading Items...</h2>
+              </div>
             ) : items.length === 0 ? (
               "No items here yet"
             ) : (
@@ -163,6 +168,7 @@ const Products = ({ l_id, u_id, u_name, msg, chatMsg }) => {
                   reload={async () => await getLists(l_id)}
                   i_id={i._id._id}
                   l_id={l_id}
+                  u_name={u_name}
                 />
               ))
             )}
@@ -170,25 +176,33 @@ const Products = ({ l_id, u_id, u_name, msg, chatMsg }) => {
         ) : (
           <div className="products_items_chat">
             <div className="chat_messages">
-              {isChatLoading
-                ? "Loading Messages"
-                : messages
-                ? messages.map((m) => (
-                    <div
-                      className={`message ${
-                        m.userName !== u_name ? "right" : ""
-                      }`}
-                    >
-                      <span>
-                        <b>{m.userName}</b>
-                      </span>
-                      <span>{m.msg}</span>
-                      <span>{m.date}</span>
-                    </div>
-                  ))
-                : "No Messages yet"}
+              {isChatLoading ? (
+                <div>
+                  <p>Loading Messages...</p>
+                </div>
+              ) : messages ? (
+                messages.map((m) => (
+                  <div
+                    className={`message ${
+                      m.userName === "System"
+                        ? "center"
+                        : m.userName !== u_name
+                        ? "right"
+                        : ""
+                    }`}
+                  >
+                    <span>
+                      <b>{m.userName}</b>
+                    </span>
+                    <span>{m.msg}</span>
+                    <span>{m.date}</span>
+                  </div>
+                ))
+              ) : (
+                "No Messages yet"
+              )}
             </div>
-            <div>
+            <div className="chat_input">
               <input
                 type="text"
                 placeholder="Type Your Message"

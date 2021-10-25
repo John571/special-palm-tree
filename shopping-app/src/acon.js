@@ -10,7 +10,7 @@ const Home = ({ u_id, setl_id, l_id, msg, u_name, chat }) => {
         <div className="home_cont">
           <h2>Welcome to Shopping App!</h2>
           <h2>Please Login or Register</h2>
-          <h2> in order to use this app.</h2>
+          <h2>to continue</h2>
         </div>
         <div>
           <img
@@ -25,7 +25,13 @@ const Home = ({ u_id, setl_id, l_id, msg, u_name, chat }) => {
     console.log(sessionStorage.getItem("user_id"), u_id, u_name);
     return (
       <>
-        <Lists id={u_id} setList={setl_id} l_id={l_id} msg={msg} />
+        <Lists
+          id={u_id}
+          setList={setl_id}
+          l_id={l_id}
+          msg={msg}
+          u_name={u_name}
+        />
         <Products
           l_id={l_id}
           u_id={u_id}

@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Nav.css";
-const Nav = ({ set_id, u_id, u_name, set_name }) => {
+const Nav = ({ set_id, setl_id, u_id, u_name, set_name }) => {
   return (
     <ul>
       <li>
@@ -37,7 +37,9 @@ const Nav = ({ set_id, u_id, u_name, set_name }) => {
               sessionStorage.removeItem("user_token");
               sessionStorage.removeItem("user_id");
               sessionStorage.removeItem("user_name");
+              sessionStorage.removeItem("list_id");
               set_id(null);
+              setl_id(null);
               set_name(null);
               console.log("logout", sessionStorage.getItem("user_id"));
             }}

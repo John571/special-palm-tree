@@ -7,7 +7,7 @@ import Invite from "./Invite";
 import ListInfo from "./ListInfo";
 import "./Lists.css";
 
-const Lists = ({ id, setList, l_id, msg }) => {
+const Lists = ({ id, setList, l_id, msg, u_name }) => {
   const [lists, setLists] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [addListmodal, setaddListModal] = useState(false);
